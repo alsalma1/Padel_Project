@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="Container" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="31" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="Container" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="Container">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="bAddPista" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
+                          <Component id="bSalirGestionPistas" min="-2" pref="96" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="436" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="110" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="bAddPista" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="bSalirGestionPistas" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="304" max="-2" attributes="0"/>
+                  <EmptySpace pref="75" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="bAddPista">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAddPistaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bSalirGestionPistas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Salir"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSalirGestionPistasActionPerformed"/>
+          </Events>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTable" name="tablePistas">
+              <Properties>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="// Crear la tabla con dos columnas: ID de pista y Estado&#xa;DefaultTableModel modelo = new DefaultTableModel() {&#xa;    @Override&#xa;    public boolean isCellEditable(int row, int column) {&#xa;        // Hacer que la columna de ID de pista no sea editable (suponiendo que es la primera columna)&#xa;        return column != 0; // Establecer a true si quieres que otras columnas sean editables&#xa;    }&#xa;};&#xa;modelo.addColumn(&quot;ID de Pista&quot;);&#xa;modelo.addColumn(&quot;Estado&quot;);&#xa;&#xa;// Configurar la tabla&#xa;JTable tablePistas = new JTable(modelo);&#xa;JScrollPane jScrollPane1 = new JScrollPane(tablePistas);&#xa;&#xa;// Obtener las pistas de la base de datos y agregarlas a la tabla&#xa;ArrayList&lt;Pista&gt; pistas = null;&#xa;try {&#xa;    pistas = Pista.obtenerPistasDB();&#xa;} catch (SQLException ex) {&#xa;    // Manejo de excepciones&#xa;}&#xa;&#xa;for (Pista pista : pistas) {&#xa;    Object[] newRow = {pista.getId_pista(), pista.getEstado()};&#xa;    modelo.addRow(newRow); &#xa;}&#xa;&#xa;// Configurar JComboBox como editor de celda en la columna de Estado&#xa;String[] estados = {&quot;Available&quot;, &quot;Ocupada&quot;, &quot;Mantenimiento&quot;};&#xa;TableColumn col = tablePistas.getColumnModel().getColumn(1);&#xa;JComboBox&lt;String&gt; comboBox = new JComboBox&lt;&gt;(estados);&#xa;col.setCellEditor(new DefaultCellEditor(comboBox));&#xa;&#xa;modelo.addTableModelListener(new TableModelListener() {&#xa;    @Override&#xa;    public void tableChanged(TableModelEvent e) {&#xa;        if (e.getType() == TableModelEvent.UPDATE) {&#xa;            int fila = e.getFirstRow();&#xa;            int columna = e.getColumn();&#xa;            if (columna == 1) { // Si la columna es la de Estado&#xa;                int idPista = (int) modelo.getValueAt(fila, 0);&#xa;                System.out.print(idPista);&#xa;                String nuevoEstado = (String) modelo.getValueAt(fila, columna);&#xa;                System.out.print(nuevoEstado);&#xa;                Pista.actualizarPista(idPista, nuevoEstado);&#xa;            }&#xa;        }&#xa;    }&#xa;});&#xa;// Agregar la tabla a un contenedor&#xa;Container.add(jScrollPane1);">
+                  <Table columnCount="0" rowCount="0"/>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0"/>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
