@@ -31,6 +31,7 @@ com\mycompany\mavenproject1\views\AñadirUsuario$10.class
 com\mycompany\mavenproject1\views\AñadirUsuario$8.class
 com\mycompany\mavenproject1\views\GestionUsuarios$5.class
 com\mycompany\mavenproject1\views\GestionPistas$3.class
+com\mycompany\mavenproject1\views\PaginaPrincipalAdmin$4.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados$5.class
 com\mycompany\mavenproject1\views\EditarUsuario$8.class
 com\mycompany\mavenproject1\views\ConfirmarInsercionDatos.class
@@ -40,6 +41,7 @@ com\mycompany\mavenproject1\views\EditarUsuario$1.class
 com\mycompany\mavenproject1\views\Login$2.class
 com\mycompany\mavenproject1\views\GestionPistas$1.class
 com\mycompany\mavenproject1\views\EditarUsuario$5.class
+com\mycompany\mavenproject1\views\GestionReservasAdmin.class
 com\mycompany\mavenproject1\views\GestionPistas$2.class
 com\mycompany\mavenproject1\views\PaginaPrincipalAdmin$1.class
 com\mycompany\mavenproject1\views\PaginaPrincipalAdmin.class
@@ -50,6 +52,7 @@ com\mycompany\mavenproject1\views\GestionUsuarios$6.class
 com\mycompany\mavenproject1\views\GestionPistas$4.class
 com\mycompany\mavenproject1\views\GestionUsuarios$4.class
 com\mycompany\mavenproject1\views\AñadirUsuario$9.class
+com\mycompany\mavenproject1\views\GestionReservasAdmin$1.class
 com\mycompany\mavenproject1\views\PaginaPrincipalAdmin$3.class
 com\mycompany\mavenproject1\views\Login$1.class
 com\mycompany\mavenproject1\controllers\AppController.class
