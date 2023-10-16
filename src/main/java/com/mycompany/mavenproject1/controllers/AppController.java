@@ -111,6 +111,7 @@ public class AppController {
             // Convertir java.util.Date a java.sql.Date
             java.sql.Date fechaNacimientoSQL = new java.sql.Date(fechaNacimiento.getTime());
             usuario.setFecha_nacimiento(fechaNacimientoSQL);
+            //ALGOOOOOs
             
         } catch (ParseException e) {
             e.printStackTrace();
