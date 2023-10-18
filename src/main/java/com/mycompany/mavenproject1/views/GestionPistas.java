@@ -9,13 +9,10 @@ import com.mycompany.mavenproject1.controllers.*;
 import com.mycompany.mavenproject1.models.Pista;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.DefaultCellEditor;
-import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableColumn;
 import javax.swing.JScrollPane;
 public class GestionPistas extends javax.swing.JFrame {

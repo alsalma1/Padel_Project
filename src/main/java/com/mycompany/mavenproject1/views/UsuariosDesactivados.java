@@ -6,7 +6,6 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class UsuariosDesactivados extends javax.swing.JFrame {

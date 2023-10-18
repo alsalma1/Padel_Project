@@ -218,7 +218,6 @@ public class Usuario {
             // Verificar si hay al menos un registro
             if (resultSet != null && resultSet.next()) {
                 int count = resultSet.getInt("count");
-                System.out.println(count);
                 return count > 0;
             }
             return false;
@@ -450,7 +449,7 @@ public class Usuario {
             connection = conexion.establecerConexion();
 
             // Consulta SQL para verificar las credenciales
-            String consultaSQL = "SELECT * FROM usuarios WHERE email = ? AND contraseña = ?";
+            String consultaSQL = "SELECT * FROM usuarios WHERE email = ? AND contraseña = ? AND activado = 1";
             preparedStatement = connection.prepareStatement(consultaSQL);
             preparedStatement.setString(1, getEmail());
             preparedStatement.setString(2, getContrasena());
@@ -479,4 +478,93 @@ public class Usuario {
             }
         }
     }
+    
+    public String obtenerNombre() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String nombre = null;
+
+        try {
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Crear la consulta SQL con un PreparedStatement
+            String sql = "SELECT nombre FROM usuarios WHERE email = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, getEmail());
+
+            // Ejecutar la consulta
+            resultSet = preparedStatement.executeQuery();
+
+            // Obtener el nombre (si existe)
+            if (resultSet.next()) {
+                nombre = resultSet.getString("nombre");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de errores: imprime el error en la consola
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace(); // Manejo de errores: imprime el error en la consola
+            }
+        }
+
+        return nombre;
+    }
+    
+    public List<Usuario> datosUsuarioLogeado() {
+        List<Usuario> infoUser = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Crear la consulta SQL con un PreparedStatement y parámetros
+            String sql = "SELECT * FROM usuarios WHERE email = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, getEmail());
+
+            // Ejecutar la consulta
+            resultSet = preparedStatement.executeQuery();
+
+            // Iterar sobre los resultados y crear objetos Usuario
+            while (resultSet.next()) {
+                this.setNombre(resultSet.getString("nombre"));
+                this.setApellido(resultSet.getString("apellido"));
+                this.setEmail(resultSet.getString("email"));
+                this.setContrasena(resultSet.getString("contraseña"));
+                this.setFecha_nacimiento(resultSet.getDate("fecha_nacimiento"));
+                this.setTelefono(resultSet.getString("telefono"));
+                this.setDni(resultSet.getString("dni"));
+                this.setSocio(resultSet.getBoolean("socio"));
+
+                infoUser.add(this);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de errores: imprime el error en la consola
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace(); // Manejo de errores: imprime el error en la consola
+            }
+        }
+        return infoUser;
+    }
+
 }

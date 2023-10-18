@@ -1,7 +1,6 @@
 package com.mycompany.mavenproject1.views;
 
 import com.mycompany.mavenproject1.controllers.AppController;
-import javax.swing.JFrame;
 
 public class PaginaPrincipalAdmin extends javax.swing.JFrame {
     private AppController appController;
@@ -13,7 +12,6 @@ public class PaginaPrincipalAdmin extends javax.swing.JFrame {
     public PaginaPrincipalAdmin() {
         initComponents();
         setTitle("Pagina principal admin");
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         jButton1.setText("Cerrar sesión");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -71,15 +69,13 @@ public class PaginaPrincipalAdmin extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1117, 1117, 1117))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(bGestionPistas, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(944, 944, 944))))
+                        .addGap(68, 68, 68)
+                        .addComponent(jButton1)))
+                .addGap(951, 951, 951))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(174, 174, 174)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -95,7 +91,7 @@ public class PaginaPrincipalAdmin extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(bGestionPistas, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
+                        .addGap(137, 137, 137)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(btnGestionarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
