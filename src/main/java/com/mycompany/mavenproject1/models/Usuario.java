@@ -438,4 +438,45 @@ public class Usuario {
             }
         }
     }
+    
+    public boolean comprobarDatosUsuario(){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establece la conexión
+            Conexion conexion = new Conexion();
+            connection = conexion.establecerConexion();
+
+            // Consulta SQL para verificar las credenciales
+            String consultaSQL = "SELECT * FROM usuarios WHERE email = ? AND contraseña = ?";
+            preparedStatement = connection.prepareStatement(consultaSQL);
+            preparedStatement.setString(1, getEmail());
+            preparedStatement.setString(2, getContrasena());
+
+            resultSet = preparedStatement.executeQuery();
+
+            // Si hay al menos una fila, las credenciales son válidas
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

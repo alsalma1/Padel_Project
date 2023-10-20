@@ -147,7 +147,7 @@ public class PaginaPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionReservasActionPerformed
 
     private void cerrarSesion() {
-        Login loginForm = new Login();
+        LoginAdmin loginForm = new LoginAdmin();
         loginForm.setVisible(true);
         this.dispose(); // Cierra la ventana actual (PaginaPrincipalAdmin)
     }

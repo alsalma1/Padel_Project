@@ -6,12 +6,13 @@ import com.mycompany.mavenproject1.views.AñadirUsuario;
 import com.mycompany.mavenproject1.views.EditarUsuario;
 import com.mycompany.mavenproject1.views.GestionPistas;
 import com.mycompany.mavenproject1.views.GestionUsuarios;
-import com.mycompany.mavenproject1.views.Login;
+import com.mycompany.mavenproject1.views.Inicio;
+import com.mycompany.mavenproject1.views.LoginAdmin;
+import com.mycompany.mavenproject1.views.LoginUsuario;
 import com.mycompany.mavenproject1.views.PaginaPrincipalAdmin;
+import com.mycompany.mavenproject1.views.PaginaPrincipalUsuario;
 import com.mycompany.mavenproject1.views.UsuariosDesactivados;
 import java.awt.Color;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,16 +29,18 @@ public class AppController {
     public static AñadirUsuario añadirUsuario = new AñadirUsuario();
     public static GestionUsuarios gestionUsuarios;
     public static UsuariosDesactivados usuariosDesactivados = new UsuariosDesactivados();
+    public static PaginaPrincipalUsuario paginaPrincipalUsuario = new PaginaPrincipalUsuario();
     
     private static final GestionPistas viewGestion = new GestionPistas();
     private static final PaginaPrincipalAdmin viewAdminPanel = new PaginaPrincipalAdmin();
     /* ------------------ Adminastrador --------------------- */
-    public void mostrarLogin() {
-        Login loginView = new Login();
+    public void mostrarLoginAdmin(Inicio inicio) {
+        LoginAdmin loginView = new LoginAdmin();
         loginView.setVisible(true);
+        inicio.setVisible(false);
     }
     
-    public void comprobarCredenciales(String usuario, String contrasena, Login login){
+    public void comprobarCredenciales(String usuario, String contrasena, LoginAdmin login){
         Admin admin = new Admin(usuario, contrasena);
         if(admin.comprobarDatos()){
             // Las credenciales son válidas, abre la página principal del administrador
@@ -50,6 +53,28 @@ public class AppController {
     }
     
     /* ------------------ Usuario --------------------- */
+    public void mostrarLoginUsuario(Inicio inicio){
+        LoginUsuario loginUser = new LoginUsuario();
+        loginUser.setVisible(true);
+        inicio.setVisible(false);
+    }
+    
+    public void comprobarCredencialesUsuario(String email, String contraseña, LoginUsuario loginUsu){
+        Usuario user = new Usuario();
+        
+        user.setEmail(email);
+        user.setContrasena(contraseña);
+        
+        if(user.comprobarDatosUsuario()){
+            // Las credenciales son válidas, abre la página principal del usuario
+            paginaPrincipalUsuario.setVisible(true);
+            loginUsu.setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "¡Datos incorerctos, intenta otra vez!");
+        }
+    }
+    
     public void mostrarUsuarios(PaginaPrincipalAdmin paginaPrincipalAdmin){
         Usuario usuario = new Usuario();
 

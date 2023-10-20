@@ -2,6 +2,7 @@ package com.mycompany.mavenproject1;
 
 import com.mycompany.mavenproject1.config.Conexion;
 import com.mycompany.mavenproject1.controllers.AppController;
+import com.mycompany.mavenproject1.views.Inicio;
 
 public class Mavenproject1 {
 
@@ -11,9 +12,7 @@ public class Mavenproject1 {
         objetoConexion.establecerConexion();
         
         //Mostar el login del administrador
-        AppController appController = new AppController();
-        appController.mostrarLogin();
-        //appController.mostrarUsuarios();
-        
+        Inicio paginaPrincipal = new Inicio() ;
+        paginaPrincipal.setVisible(true);
     }
 }
