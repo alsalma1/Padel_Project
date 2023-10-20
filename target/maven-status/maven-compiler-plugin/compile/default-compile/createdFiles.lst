@@ -1,4 +1,5 @@
 com\mycompany\mavenproject1\views\EditarUsuario.class
+com\mycompany\mavenproject1\views\PerfilUsuario.class
 com\mycompany\mavenproject1\models\Usuario.class
 com\mycompany\mavenproject1\models\Pista$1.class
 com\mycompany\mavenproject1\config\Conexion.class
@@ -13,6 +14,11 @@ com\mycompany\mavenproject1\views\AñadirUsuario$4.class
 com\mycompany\mavenproject1\models\Pista.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados$4.class
 com\mycompany\mavenproject1\Mavenproject1.class
+<<<<<<< HEAD
+=======
+com\mycompany\mavenproject1\views\Inicio$5.class
+com\mycompany\mavenproject1\views\PerfilUsuario$1.class
+>>>>>>> d946890be2d90ab0329f3fe9e7cfab779c1d1831
 com\mycompany\mavenproject1\views\AñadirUsuario.class
 com\mycompany\mavenproject1\views\EditarUsuario$11.class
 com\mycompany\mavenproject1\views\EditarUsuario$7.class
@@ -20,12 +26,18 @@ com\mycompany\mavenproject1\views\GestionUsuarios$1.class
 com\mycompany\mavenproject1\views\EditarUsuario$2.class
 com\mycompany\mavenproject1\views\AñadirUsuario$2.class
 com\mycompany\mavenproject1\views\EditarUsuario$4.class
+<<<<<<< HEAD
+=======
+com\mycompany\mavenproject1\views\PaginaPrincipalUsuario$3.class
+com\mycompany\mavenproject1\views\LoginUsuario.class
+>>>>>>> d946890be2d90ab0329f3fe9e7cfab779c1d1831
 com\mycompany\mavenproject1\views\NonEditableEditor.class
 com\mycompany\mavenproject1\views\AñadirUsuario$13.class
 com\mycompany\mavenproject1\views\EditarUsuario$13.class
 com\mycompany\mavenproject1\views\Login.class
 com\mycompany\mavenproject1\views\ButtonRenderer.class
 com\mycompany\mavenproject1\views\GestionUsuarios$2.class
+com\mycompany\mavenproject1\views\PerfilUsuario$2.class
 com\mycompany\mavenproject1\views\EditarUsuario$10.class
 com\mycompany\mavenproject1\views\AñadirUsuario$10.class
 com\mycompany\mavenproject1\views\AñadirUsuario$8.class
@@ -62,6 +74,7 @@ com\mycompany\mavenproject1\views\AñadirUsuario$6.class
 com\mycompany\mavenproject1\views\GestionUsuarios$7.class
 com\mycompany\mavenproject1\views\EditarUsuario$12.class
 com\mycompany\mavenproject1\views\EditarUsuario$6.class
+com\mycompany\mavenproject1\views\PaginaPrincipalUsuario$2.class
 com\mycompany\mavenproject1\models\Reserva.class
 com\mycompany\mavenproject1\views\EditarUsuario$3.class
 com\mycompany\mavenproject1\models\Admin.class

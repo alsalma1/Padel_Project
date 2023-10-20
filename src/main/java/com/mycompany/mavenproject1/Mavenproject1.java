@@ -1,7 +1,6 @@
 package com.mycompany.mavenproject1;
 
 import com.mycompany.mavenproject1.config.Conexion;
-import com.mycompany.mavenproject1.controllers.AppController;
 import com.mycompany.mavenproject1.views.Inicio;
 
 public class Mavenproject1 {

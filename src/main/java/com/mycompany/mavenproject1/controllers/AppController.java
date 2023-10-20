@@ -11,6 +11,7 @@ import com.mycompany.mavenproject1.views.LoginAdmin;
 import com.mycompany.mavenproject1.views.LoginUsuario;
 import com.mycompany.mavenproject1.views.PaginaPrincipalAdmin;
 import com.mycompany.mavenproject1.views.PaginaPrincipalUsuario;
+import com.mycompany.mavenproject1.views.PerfilUsuario;
 import com.mycompany.mavenproject1.views.UsuariosDesactivados;
 import java.awt.Color;
 import java.text.ParseException;
@@ -30,9 +31,11 @@ public class AppController {
     public static GestionUsuarios gestionUsuarios;
     public static UsuariosDesactivados usuariosDesactivados = new UsuariosDesactivados();
     public static PaginaPrincipalUsuario paginaPrincipalUsuario = new PaginaPrincipalUsuario();
+    public static PerfilUsuario perfilUsuario = new PerfilUsuario();
     
     private static final GestionPistas viewGestion = new GestionPistas();
     private static final PaginaPrincipalAdmin viewAdminPanel = new PaginaPrincipalAdmin();
+
     /* ------------------ Adminastrador --------------------- */
     public void mostrarLoginAdmin(Inicio inicio) {
         LoginAdmin loginView = new LoginAdmin();
@@ -61,17 +64,20 @@ public class AppController {
     
     public void comprobarCredencialesUsuario(String email, String contraseña, LoginUsuario loginUsu){
         Usuario user = new Usuario();
-        
+
         user.setEmail(email);
         user.setContrasena(contraseña);
-        
+        String nombre = user.obtenerNombre();
         if(user.comprobarDatosUsuario()){
+            String texto = paginaPrincipalUsuario.labelUsu.getText()+" "+nombre;
             // Las credenciales son válidas, abre la página principal del usuario
+            paginaPrincipalUsuario.setUserEmail(email);
+            paginaPrincipalUsuario.labelUsu.setText(texto);
             paginaPrincipalUsuario.setVisible(true);
             loginUsu.setVisible(false);
         }
         else{
-            JOptionPane.showMessageDialog(null, "¡Datos incorerctos, intenta otra vez!");
+            JOptionPane.showMessageDialog(null, "¡Datos incorerctos o usuario no registrado en el sistema, intenta otra vez!");
         }
     }
     
@@ -196,6 +202,7 @@ public class AppController {
         String contraseña = "";
         // Imprime los datos de los usuarios
         for (Usuario user : usuarios) {
+            
             editUser.fieldNombre.setText(user.getNombre());
             editUser.fieldApellido.setText(user.getApellido());
             editUser.fieldDni.setText(user.getDni());
@@ -288,6 +295,10 @@ public class AppController {
             usuariosDesactivados.setVisible(false);
             actualizarYMostrarUsuarios();
         }
+        else if(object instanceof PerfilUsuario){
+            perfilUsuario.setVisible(false);
+            paginaPrincipalUsuario.setVisible(true);
+        }
     }
     
     public void mostrarUsuariosDesactivados(GestionUsuarios gestionUsuarios){
@@ -326,7 +337,42 @@ public class AppController {
         actualizarYMostrarUsuarios();
     }
 
+    public void mostrarPerfilUsuario(PaginaPrincipalUsuario paginaPrincipalUsuario, String email){
+        paginaPrincipalUsuario.setVisible(false);
+        
+        Usuario user = new Usuario();
+        PerfilUsuario perfil = new PerfilUsuario();
+        user.setEmail(email);
+
+        List<Usuario> infoUser = user.datosUsuarioLogeado();
+
+        for (Usuario usuario : infoUser) {
+            perfil.labelNombre.setText(usuario.getNombre()+" "+usuario.getApellido());
+            perfil.labelDni.setText(usuario.getDni());
+            
+            // Convertir la fecha al formato dd-MM-yyyy
+            String fechaFormateada = convertirFormatoFecha(usuario.getFecha_nacimiento());
+            System.out.println("Fecha de nacimiento: " + fechaFormateada);
+            perfil.labelFechaN.setText(fechaFormateada);
+            perfil.labelPassw.setText(perfil.labelPassw.getText()+ " "+usuario.getContrasena());
+            perfil.labelEmail.setText(usuario.getEmail());
+            perfil.labelTelefono.setText(usuario.getTelefono());
+        }
+        perfil.setVisible(true);
+    }
     
+    public String convertirFormatoFecha(Date fecha) {
+        try {
+            // Crear un formato para la fecha en formato dd-MM-yyyy
+            SimpleDateFormat formatoDestino = new SimpleDateFormat("dd-MM-yyyy");
+
+            // Formatear la fecha al nuevo formato
+            return formatoDestino.format(fecha);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /* ------------------ Pistas --------------------- */
     public static void mostrarGestionPistas(){
         viewGestion.setVisible(true);
