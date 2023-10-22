@@ -138,7 +138,8 @@ public class PaginaPrincipalUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPerfilMouseEntered
 
     private void btnReservarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservarMouseClicked
-        JOptionPane.showMessageDialog(null, "Aqui se va a mostrar la pagina para reservar una pista ");
+        String email = this.getUserEmail();
+        appController.mostrarPistas();
     }//GEN-LAST:event_btnReservarMouseClicked
 
     private void btnPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilMouseClicked

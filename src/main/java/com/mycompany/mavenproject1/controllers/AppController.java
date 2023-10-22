@@ -1,6 +1,7 @@
 package com.mycompany.mavenproject1.controllers;
 
 import com.mycompany.mavenproject1.models.Admin;
+import com.mycompany.mavenproject1.models.Reserva;
 import com.mycompany.mavenproject1.models.Usuario;
 import com.mycompany.mavenproject1.views.AñadirUsuario;
 import com.mycompany.mavenproject1.views.EditarUsuario;
@@ -12,6 +13,7 @@ import com.mycompany.mavenproject1.views.LoginUsuario;
 import com.mycompany.mavenproject1.views.PaginaPrincipalAdmin;
 import com.mycompany.mavenproject1.views.PaginaPrincipalUsuario;
 import com.mycompany.mavenproject1.views.PerfilUsuario;
+import com.mycompany.mavenproject1.views.ReservarPista;
 import com.mycompany.mavenproject1.views.UsuariosDesactivados;
 import java.awt.Color;
 import java.text.ParseException;
@@ -32,7 +34,8 @@ public class AppController {
     public static UsuariosDesactivados usuariosDesactivados = new UsuariosDesactivados();
     public static PaginaPrincipalUsuario paginaPrincipalUsuario = new PaginaPrincipalUsuario();
     public static PerfilUsuario perfilUsuario = new PerfilUsuario();
-    
+    public static ReservarPista reservarPista = new ReservarPista();
+ 
     private static final GestionPistas viewGestion = new GestionPistas();
     private static final PaginaPrincipalAdmin viewAdminPanel = new PaginaPrincipalAdmin();
 
@@ -383,6 +386,31 @@ public class AppController {
     }
         
     /* ------------------ Reservas --------------------- */
-
+    public void mostrarPistas(){
+        paginaPrincipalUsuario.setVisible(false);
+        reservarPista.setVisible(true);
+    }
+    
+    public void buscarFecha(Date fechaSeleccionada){
+        Reserva reserva = new Reserva();
+        java.sql.Date fechaSQL = new java.sql.Date(fechaSeleccionada.getTime()); // Convertir a java.sql.Date
+        reserva.setFecha(fechaSQL);
         
+        List<Reserva> resultados = reserva.existeFecha();
+ 
+        // Limpiar las listas para evitar duplicados
+        reservarPista.getHoras().clear();
+        reservarPista.getPistas().clear();
+
+        // Iterar a través de la lista de resultados
+        for (Reserva datosReserva : resultados) {
+            String hora = datosReserva.getHora();
+            int idPista = datosReserva.getId_pista();
+
+            // Agregar la hora y la pista a las listas
+            reservarPista.getHoras().add(hora);
+            reservarPista.getPistas().add(idPista);
+        }
+    }
+     
 }
