@@ -6,6 +6,7 @@ import com.mycompany.mavenproject1.models.Usuario;
 import com.mycompany.mavenproject1.views.AñadirUsuario;
 import com.mycompany.mavenproject1.views.EditarUsuario;
 import com.mycompany.mavenproject1.views.GestionPistas;
+import com.mycompany.mavenproject1.views.GestionReservasAdmin;
 import com.mycompany.mavenproject1.views.GestionUsuarios;
 import com.mycompany.mavenproject1.views.Inicio;
 import com.mycompany.mavenproject1.views.LoginAdmin;
@@ -38,6 +39,8 @@ public class AppController {
  
     private static final GestionPistas viewGestion = new GestionPistas();
     private static final PaginaPrincipalAdmin viewAdminPanel = new PaginaPrincipalAdmin();
+    
+    private static final GestionReservasAdmin viewReservasAdmin = new GestionReservasAdmin();
 
     /* ------------------ Adminastrador --------------------- */
     public void mostrarLoginAdmin(Inicio inicio) {
@@ -389,6 +392,14 @@ public class AppController {
     public void mostrarPistas(){
         paginaPrincipalUsuario.setVisible(false);
         reservarPista.setVisible(true);
+    }
+    public static void mostrarReservasPistasAdmin(){
+        paginaPrincipalAdmin.setVisible(false);
+        viewReservasAdmin.setVisible(true);
+    }
+    public static void salirReservasPistasAdmin(GestionReservasAdmin viewReservasAdmin){
+        viewReservasAdmin.setVisible(false);
+        viewAdminPanel.setVisible(true);
     }
     
     public void buscarFecha(Date fechaSeleccionada){
