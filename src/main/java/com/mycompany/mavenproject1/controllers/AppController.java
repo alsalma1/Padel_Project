@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class AppController {
     
@@ -401,7 +402,13 @@ public class AppController {
         viewReservasAdmin.setVisible(false);
         viewAdminPanel.setVisible(true);
     }
-    
+    public static void llenarPrimeraColumnaConHoras(DefaultTableModel modelo) {
+    modelo.setRowCount(0);
+    // Llena la primera columna con las horas desde las 8:00 hasta las 21:00
+    for (int hora = 9; hora <= 21; hora++) {
+        modelo.addRow(new Object[]{String.format("%02d:00", hora)});
+    }
+}
     public void buscarFecha(Date fechaSeleccionada){
         Reserva reserva = new Reserva();
         java.sql.Date fechaSQL = new java.sql.Date(fechaSeleccionada.getTime()); // Convertir a java.sql.Date

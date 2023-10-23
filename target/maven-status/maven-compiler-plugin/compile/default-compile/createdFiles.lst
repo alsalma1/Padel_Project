@@ -25,6 +25,7 @@ com\mycompany\mavenproject1\views\PaginaPrincipalUsuario.class
 com\mycompany\mavenproject1\views\GestionPistas$3.class
 com\mycompany\mavenproject1\views\ReservarPista$2.class
 com\mycompany\mavenproject1\views\ReservarPista.class
+com\mycompany\mavenproject1\views\GestionReservasAdmin$2.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados$5.class
 CustomCellRenderer$1.class
 com\mycompany\mavenproject1\views\ReservarPista$5.class

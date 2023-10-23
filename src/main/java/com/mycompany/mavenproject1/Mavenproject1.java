@@ -15,6 +15,6 @@ public class Mavenproject1 {
         /*Inicio paginaPrincipal = new Inicio() ;
         paginaPrincipal.setVisible(true);*/
         AppController appController = new AppController();
-        appController.mostrarPistas();
+        appController.mostrarReservasPistasAdmin();
     }
 }
