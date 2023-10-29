@@ -21,7 +21,6 @@ public class Usuario {
     private String dni;
     private String foto;
     private Boolean socio;
-
     
     //Getters and Setters
     public String getEmail() {
@@ -31,7 +30,7 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     public String getNombre() {
         return nombre;
     }
@@ -370,11 +369,7 @@ public class Usuario {
 
             // Crear la consulta SQL
             String sql = "SELECT * FROM usuarios WHERE activado = 0";
-
-            // Crear el statement
             statement = connection.createStatement();
-
-            // Ejecutar la consulta
             resultSet = statement.executeQuery(sql);
 
             // Iterar sobre los resultados y crear objetos Usuario

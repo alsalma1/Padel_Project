@@ -12,9 +12,9 @@ public class Mavenproject1 {
         objetoConexion.establecerConexion();
         
         //Mostar el login del administrador
-        /*Inicio paginaPrincipal = new Inicio() ;
-        paginaPrincipal.setVisible(true);*/
-        AppController appController = new AppController();
-        appController.mostrarPistas();
+        Inicio paginaPrincipal = new Inicio() ;
+        paginaPrincipal.setVisible(true);
+        //AppController appController = new AppController();
+        //appController.mostrarPistas("salma@gmail.com");
     }
 }

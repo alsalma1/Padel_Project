@@ -1,7 +1,18 @@
 package com.mycompany.mavenproject1.views;
 
-public class PerfilUsuario extends javax.swing.JFrame {
+import com.mycompany.mavenproject1.controllers.AppController;
+import javax.swing.JOptionPane;
 
+public class PerfilUsuario extends javax.swing.JFrame {
+    private String userEmail;
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
     public PerfilUsuario() {
         initComponents();
         setTitle("Mi perfil");
@@ -49,6 +60,11 @@ public class PerfilUsuario extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(204, 255, 204));
         jButton1.setText("Mis reservas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         labelNombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
@@ -125,8 +141,6 @@ public class PerfilUsuario extends javax.swing.JFrame {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        labelEmail.getAccessibleContext().setAccessibleName("");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -134,9 +148,12 @@ public class PerfilUsuario extends javax.swing.JFrame {
         setVisible(false);
         PaginaPrincipalUsuario pagina = new PaginaPrincipalUsuario();
         pagina.setVisible(true);
-        //AppController appController = new AppController();
-        //appController.volverAtras(PerfilUsuario.this);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AppController appController = new AppController();
+        appController.mostrarMisReservas(PerfilUsuario.this, getUserEmail());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

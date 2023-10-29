@@ -10,6 +10,7 @@ import com.mycompany.mavenproject1.views.GestionUsuarios;
 import com.mycompany.mavenproject1.views.Inicio;
 import com.mycompany.mavenproject1.views.LoginAdmin;
 import com.mycompany.mavenproject1.views.LoginUsuario;
+import com.mycompany.mavenproject1.views.MisReservas;
 import com.mycompany.mavenproject1.views.PaginaPrincipalAdmin;
 import com.mycompany.mavenproject1.views.PaginaPrincipalUsuario;
 import com.mycompany.mavenproject1.views.PerfilUsuario;
@@ -35,7 +36,8 @@ public class AppController {
     public static PaginaPrincipalUsuario paginaPrincipalUsuario = new PaginaPrincipalUsuario();
     public static PerfilUsuario perfilUsuario = new PerfilUsuario();
     public static ReservarPista reservarPista = new ReservarPista();
- 
+    public static MisReservas misReservas = new MisReservas();
+
     private static final GestionPistas viewGestion = new GestionPistas();
     private static final PaginaPrincipalAdmin viewAdminPanel = new PaginaPrincipalAdmin();
 
@@ -302,6 +304,15 @@ public class AppController {
             perfilUsuario.setVisible(false);
             paginaPrincipalUsuario.setVisible(true);
         }
+        else if(object instanceof ReservarPista){
+            reservarPista.setVisible(false);
+            paginaPrincipalUsuario.setVisible(true);
+        }
+        else if(object instanceof MisReservas){
+            misReservas.setVisible(false);
+            JOptionPane.showMessageDialog(null, "TTT: "+perfilUsuario.getUserEmail());
+            //mostrarPerfilUsuario(paginaPrincipalUsuario, misReservas.getUserEmail());
+        }
     }
     
     public void mostrarUsuariosDesactivados(GestionUsuarios gestionUsuarios){
@@ -355,12 +366,12 @@ public class AppController {
             
             // Convertir la fecha al formato dd-MM-yyyy
             String fechaFormateada = convertirFormatoFecha(usuario.getFecha_nacimiento());
-            System.out.println("Fecha de nacimiento: " + fechaFormateada);
             perfil.labelFechaN.setText(fechaFormateada);
             perfil.labelPassw.setText(perfil.labelPassw.getText()+ " "+usuario.getContrasena());
             perfil.labelEmail.setText(usuario.getEmail());
             perfil.labelTelefono.setText(usuario.getTelefono());
         }
+        perfil.setUserEmail(email);
         perfil.setVisible(true);
     }
     
@@ -376,6 +387,22 @@ public class AppController {
             return null;
         }
     }
+    
+    public void mostrarMisReservas(PerfilUsuario perfilUsuario, String email){
+        perfilUsuario.setVisible(false);
+        MisReservas misReservas = new MisReservas();
+        Reserva reserva = new Reserva();
+        reserva.setEmail_usuario(email);
+        misReservas.setUserEmail(email);
+        List<Reserva> mevasReservas = reserva.reservasUsuarioLogeado();
+        misReservas.cargarReservasEnTabla(mevasReservas);
+        misReservas.setVisible(true);
+    }
+
+    public void avisarUsuario(String emailUsuarioLogeado) {
+
+    }
+
     /* ------------------ Pistas --------------------- */
     public static void mostrarGestionPistas(){
         viewGestion.setVisible(true);
@@ -386,9 +413,10 @@ public class AppController {
     }
         
     /* ------------------ Reservas --------------------- */
-    public void mostrarPistas(){
+    public void mostrarPistas(String email){
         paginaPrincipalUsuario.setVisible(false);
         reservarPista.setVisible(true);
+        reservarPista.setUserEmail(email);
     }
     
     public void buscarFecha(Date fechaSeleccionada){
@@ -397,7 +425,8 @@ public class AppController {
         reserva.setFecha(fechaSQL);
         
         List<Reserva> resultados = reserva.existeFecha();
- 
+        List<Integer> pistasMantenimiento = reserva.pistasMantenimiento();
+        
         // Limpiar las listas para evitar duplicados
         reservarPista.getHoras().clear();
         reservarPista.getPistas().clear();
@@ -411,6 +440,52 @@ public class AppController {
             reservarPista.getHoras().add(hora);
             reservarPista.getPistas().add(idPista);
         }
+        reservarPista.showPistasMantenimiento(pistasMantenimiento);
+    }
+    
+    public void hacerLaReserva(String hora, int pista, Date fecha, String email){
+        Reserva reserva = new Reserva();
+        reserva.setEmail_usuario(email);
+        
+        java.sql.Date fechaSeleccionada = new java.sql.Date(fecha.getTime());
+        reserva.setFecha(fechaSeleccionada);
+        reserva.setId_pista(pista);
+        reserva.setHora(hora);
+        reserva.reservar();
     }
      
+    public void userReservas(String fecha){
+        Reserva reserva = new Reserva();
+        //Convertir fecha de String a Date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = dateFormat.parse(fecha);
+            java.sql.Date fechaSQL = new java.sql.Date(date.getTime());
+            reserva.setEmail_usuario(reservarPista.getUserEmail());
+            reserva.setFecha(fechaSQL);            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<Reserva> reservasUsuario = reserva.obtenerReservasUsuario();
+
+        // Limpiar las listas para evitar duplicados
+        reservarPista.getHorasUsuario().clear();
+        reservarPista.getPistasUsuario().clear();
+        
+        for (Reserva reserva1 : reservasUsuario) {
+            String hora = reserva1.getHora();
+            int idPista = reserva1.getId_pista();
+            // Agregar la hora y la pista a las listas
+            reservarPista.getHorasUsuario().add(hora);
+            reservarPista.getPistasUsuario().add(idPista);
+        }
+    }
+    
+    public void eliminarReserva(int idReserva, MisReservas misReservas){
+        Reserva reserva = new Reserva();
+        reserva.setId_reserva(idReserva);
+        reserva.eliminarReserva();
+        //----------No olvidar poner un mensaje de confirmacion antes de borrar la reserva
+        JOptionPane.showMessageDialog(null, "Tu reserva con numero "+idReserva+"se eliminó correctamente!");
+    }
 }
