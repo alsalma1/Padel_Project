@@ -5,7 +5,6 @@ com\mycompany\mavenproject1\views\AñadirUsuario$1.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados$3.class
 com\mycompany\mavenproject1\Dashboard$2.class
 com\mycompany\mavenproject1\views\PaginaPrincipalAdmin$2.class
-com\mycompany\mavenproject1\views\MisReservas$3.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados.class
 com\mycompany\mavenproject1\views\AñadirUsuario$4.class
 com\mycompany\mavenproject1\models\Pista.class
@@ -69,7 +68,6 @@ com\mycompany\mavenproject1\views\EditarUsuario$4.class
 com\mycompany\mavenproject1\views\LoginUsuario.class
 com\mycompany\mavenproject1\views\GestionUsuarios$2.class
 com\mycompany\mavenproject1\views\MisReservas$2.class
-com\mycompany\mavenproject1\views\PerfilUsuario$2.class
 com\mycompany\mavenproject1\views\EditarUsuario$10.class
 com\mycompany\mavenproject1\views\AñadirUsuario$8.class
 com\mycompany\mavenproject1\views\BienvenidoUsuario.class
@@ -79,10 +77,8 @@ com\mycompany\mavenproject1\views\EditarUsuario$8.class
 com\mycompany\mavenproject1\views\GestionUsuarios$3.class
 com\mycompany\mavenproject1\Dashboard$1.class
 com\mycompany\mavenproject1\views\GestionPistas$1.class
-com\mycompany\mavenproject1\views\PerfilUsuario$3.class
 com\mycompany\mavenproject1\views\PaginaPrincipalUsuario$1.class
 com\mycompany\mavenproject1\views\GestionReservasAdmin.class
-com\mycompany\mavenproject1\views\ReservarPista$8.class
 com\mycompany\mavenproject1\views\GestionPistas$2.class
 CustomCellRenderer.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados$1.class
@@ -91,12 +87,9 @@ com\mycompany\mavenproject1\views\GestionUsuarios$4.class
 com\mycompany\mavenproject1\views\AñadirUsuario$9.class
 com\mycompany\mavenproject1\views\PaginaPrincipalAdmin$3.class
 com\mycompany\mavenproject1\views\ReservarPista$1.class
-com\mycompany\mavenproject1\views\MisReservas$4.class
 com\mycompany\mavenproject1\views\EditarUsuario$9.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados$2.class
-com\mycompany\mavenproject1\views\LoginAdmin$3.class
 com\mycompany\mavenproject1\views\PaginaPrincipalUsuario$2.class
-com\mycompany\mavenproject1\views\ReservarPista$7.class
 com\mycompany\mavenproject1\DashboardAdmin$4.class
 com\mycompany\mavenproject1\models\Reserva.class
 com\mycompany\mavenproject1\views\EditarUsuario$3.class

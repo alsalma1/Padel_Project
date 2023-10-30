@@ -151,15 +151,6 @@ public class LoginAdmin extends javax.swing.JPanel {
         appController.comprobarCredenciales(usuario, contrasena);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public static void main(String args[]) {
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginAdmin().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

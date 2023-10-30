@@ -33,7 +33,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
         showJPanel(new BienvenidoUsuario());
     }
     public void showJPanel(JPanel p){
-        p.setSize(926, 540);
+        p.setSize(930, 560);
         p.setLocation(0,0);
         
         content.removeAll();
@@ -52,19 +52,36 @@ public class DashboardUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        background = new javax.swing.JPanel();
+        content = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         msg = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
-        content = new javax.swing.JPanel();
         menu = new javax.swing.JPanel();
         titlePadel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         perfilBtn = new javax.swing.JButton();
-        reservarBtn = new javax.swing.JButton();
-        principalBtn = new javax.swing.JButton();
-        misResrvasBtn = new javax.swing.JButton();
+        reservasPistasBtn = new javax.swing.JButton();
+        PrincipalBtn = new javax.swing.JButton();
+        misReservasBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1150, 680));
+
+        background.setPreferredSize(new java.awt.Dimension(1150, 680));
+
+        content.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         header.setBackground(new java.awt.Color(0, 153, 255));
 
@@ -82,34 +99,20 @@ public class DashboardUsuario extends javax.swing.JFrame {
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+            .addGroup(headerLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(msg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(376, 376, 376))
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(msg, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(date)))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(msg, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
-
-        content.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
-        content.setLayout(contentLayout);
-        contentLayout.setHorizontalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        contentLayout.setVerticalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         menu.setBackground(new java.awt.Color(0, 102, 255));
@@ -138,48 +141,48 @@ public class DashboardUsuario extends javax.swing.JFrame {
             }
         });
 
-        reservarBtn.setBackground(new java.awt.Color(51, 153, 255));
-        reservarBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        reservarBtn.setForeground(new java.awt.Color(255, 255, 255));
-        reservarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_calendar_month_white_24dp.png"))); // NOI18N
-        reservarBtn.setText("Reservar pista");
-        reservarBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        reservarBtn.setBorderPainted(false);
-        reservarBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        reservarBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        reservarBtn.addActionListener(new java.awt.event.ActionListener() {
+        reservasPistasBtn.setBackground(new java.awt.Color(51, 153, 255));
+        reservasPistasBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        reservasPistasBtn.setForeground(new java.awt.Color(255, 255, 255));
+        reservasPistasBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baseline_calendar_month_white_24dp.png"))); // NOI18N
+        reservasPistasBtn.setText("Reservar pista");
+        reservasPistasBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        reservasPistasBtn.setBorderPainted(false);
+        reservasPistasBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reservasPistasBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        reservasPistasBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reservarBtnActionPerformed(evt);
+                reservasPistasBtnActionPerformed(evt);
             }
         });
 
-        principalBtn.setBackground(new java.awt.Color(51, 153, 255));
-        principalBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        principalBtn.setForeground(new java.awt.Color(255, 255, 255));
-        principalBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/home-outline.png"))); // NOI18N
-        principalBtn.setText("Principal");
-        principalBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        principalBtn.setBorderPainted(false);
-        principalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        principalBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        principalBtn.addActionListener(new java.awt.event.ActionListener() {
+        PrincipalBtn.setBackground(new java.awt.Color(51, 153, 255));
+        PrincipalBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        PrincipalBtn.setForeground(new java.awt.Color(255, 255, 255));
+        PrincipalBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/home-outline.png"))); // NOI18N
+        PrincipalBtn.setText("Principal");
+        PrincipalBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        PrincipalBtn.setBorderPainted(false);
+        PrincipalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PrincipalBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PrincipalBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                principalBtnActionPerformed(evt);
+                PrincipalBtnActionPerformed(evt);
             }
         });
 
-        misResrvasBtn.setBackground(new java.awt.Color(51, 153, 255));
-        misResrvasBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        misResrvasBtn.setForeground(new java.awt.Color(255, 255, 255));
-        misResrvasBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calendar-multiple-check.png"))); // NOI18N
-        misResrvasBtn.setText("Mis reservas");
-        misResrvasBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        misResrvasBtn.setBorderPainted(false);
-        misResrvasBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        misResrvasBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        misResrvasBtn.addActionListener(new java.awt.event.ActionListener() {
+        misReservasBtn.setBackground(new java.awt.Color(51, 153, 255));
+        misReservasBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        misReservasBtn.setForeground(new java.awt.Color(255, 255, 255));
+        misReservasBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calendar-multiple-check.png"))); // NOI18N
+        misReservasBtn.setText("Mis reservas");
+        misReservasBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        misReservasBtn.setBorderPainted(false);
+        misReservasBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        misReservasBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        misReservasBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                misResrvasBtnActionPerformed(evt);
+                misReservasBtnActionPerformed(evt);
             }
         });
 
@@ -188,33 +191,60 @@ public class DashboardUsuario extends javax.swing.JFrame {
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(titlePadel, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(principalBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-            .addComponent(perfilBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(misResrvasBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(reservarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PrincipalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(perfilBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(reservasPistasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(misReservasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(titlePadel, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap()
                 .addComponent(titlePadel)
-                .addGap(12, 12, 12)
+                .addGap(40, 40, 40)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(principalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PrincipalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(perfilBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(menuLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(misResrvasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(menuLayout.createSequentialGroup()
                         .addGap(120, 120, 120)
-                        .addComponent(reservarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(reservasPistasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(misReservasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(318, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addGap(217, 217, 217)
+                .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(1, 1, 1))
+            .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,41 +252,30 @@ public class DashboardUsuario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(111, Short.MAX_VALUE)
-                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usuariosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosBtnActionPerformed
+    private void perfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosBtnActionPerformed
         showJPanel(new PerfilUsuario());
     }//GEN-LAST:event_usuariosBtnActionPerformed
 
-    private void pistasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pistasBtnActionPerformed
+    private void reservasPistasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pistasBtnActionPerformed
         showJPanel(new ReservarPista());
     }//GEN-LAST:event_pistasBtnActionPerformed
 
-    private void principalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalBtnActionPerformed
+    private void PrincipalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrincipalBtnActionPerformed
         showJPanel(new BienvenidoUsuario());
-    }//GEN-LAST:event_principalBtnActionPerformed
+    }//GEN-LAST:event_PrincipalBtnActionPerformed
 
-    private void reservasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservasBtnActionPerformed
+    private void misReservasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservasBtnActionPerformed
         showJPanel(new MisReservas());
     }//GEN-LAST:event_reservasBtnActionPerformed
 
@@ -266,16 +285,17 @@ public class DashboardUsuario extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton PrincipalBtn;
+    private javax.swing.JPanel background;
     private javax.swing.JPanel content;
     private javax.swing.JLabel date;
     private javax.swing.JPanel header;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel menu;
-    private javax.swing.JButton misResrvasBtn;
+    private javax.swing.JButton misReservasBtn;
     private javax.swing.JLabel msg;
     private javax.swing.JButton perfilBtn;
-    private javax.swing.JButton principalBtn;
-    private javax.swing.JButton reservarBtn;
+    private javax.swing.JButton reservasPistasBtn;
     private javax.swing.JLabel titlePadel;
     // End of variables declaration//GEN-END:variables
 }
