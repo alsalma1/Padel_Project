@@ -1,5 +1,6 @@
 package com.mycompany.mavenproject1.controllers;
 
+import com.mycompany.mavenproject1.DashboardAdmin;
 import com.mycompany.mavenproject1.models.Admin;
 import com.mycompany.mavenproject1.models.Reserva;
 import com.mycompany.mavenproject1.models.Usuario;
@@ -17,6 +18,7 @@ import com.mycompany.mavenproject1.views.PaginaPrincipalUsuario;
 import com.mycompany.mavenproject1.views.PerfilUsuario;
 import com.mycompany.mavenproject1.views.ReservarPista;
 import com.mycompany.mavenproject1.views.UsuariosDesactivados;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,20 +42,15 @@ public class AppController {
     public static PerfilUsuario perfilUsuario = new PerfilUsuario();
     public static ReservarPista reservarPista = new ReservarPista();
     public static MisReservas misReservas = new MisReservas();
-
+    public static DashboardAdmin dashA = new DashboardAdmin();
     private static final GestionPistas viewGestion = new GestionPistas();
     private static final PaginaPrincipalAdmin viewAdminPanel = new PaginaPrincipalAdmin();
     
     private static final GestionReservasAdmin viewReservasAdmin = new GestionReservasAdmin();
 
     /* ------------------ Adminastrador --------------------- */
-    public void mostrarLoginAdmin(Inicio inicio) {
-        LoginAdmin loginView = new LoginAdmin();
-        loginView.setVisible(true);
-        inicio.setVisible(false);
-    }
     
-    public void comprobarCredenciales(String usuario, String contrasena, LoginAdmin login){
+    public void comprobarCredenciales(String usuario, String contrasena){
         Admin admin = new Admin(usuario, contrasena);
         if(admin.comprobarDatos()){
             // Las credenciales son válidas, abre la página principal del administrador
@@ -63,7 +61,16 @@ public class AppController {
             JOptionPane.showMessageDialog(null, "Datos incorerctos, intenta otra vez!");
         }
     }
-    
+    public void showJPanelController(JPanel p){
+        p.setSize(926, 540);
+        p.setLocation(0,0);
+        
+        p.removeAll();
+        p.setLayout(new BorderLayout()); // Asegúrate de establecer un BorderLayout si aún no lo has hecho
+        p.add(p, BorderLayout.CENTER);
+        p.revalidate();
+        p.repaint();
+    }
     /* ------------------ Usuario --------------------- */
     public void mostrarLoginUsuario(Inicio inicio){
         LoginUsuario loginUser = new LoginUsuario();
@@ -117,11 +124,6 @@ public class AppController {
         gestionUsuarios.setVisible(true);
         paginaPrincipalAdmin.setVisible(false);
     }
-    
-    public void mostrarVentanaAñadirUsuario(GestionUsuarios gestionUsuarios){
-        añadirUsuario.setVisible(true);
-        gestionUsuarios.setVisible(false);
-    }
     public void datosUsurios(){
         Usuario usuario = new Usuario();
         // Llamar al método obtenerUsuarios
@@ -129,7 +131,7 @@ public class AppController {
         GestionUsuarios gestionUsuarios = new GestionUsuarios();
         gestionUsuarios.cargarUsuariosEnTabla(usuarios);
     }
-    public void añadirUsuario(String nombre, String apellido, String dni, String email, String telef, String socio, Date fecha, AñadirUsuario añadirUsuario){
+    public void añadirUsuario(String nombre, String apellido, String dni, String email, String telef, String socio, Date fecha){
         
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
@@ -204,7 +206,7 @@ public class AppController {
         return randomString.toString();
     }
     
-    public void mostrarDatosUsuario(String dni, GestionUsuarios gestionUsuarios){
+    public void mostrarDatosUsuario(String dni){
         Usuario usuario = new Usuario();
         usuario.setDni(dni);
         List<Usuario> usuarios = usuario.datosUsuarioConDni();
@@ -270,7 +272,7 @@ public class AppController {
 
         // Cerrar la ventana anterior de GestionUsuarios si está abierta
         if (gestionUsuarios != null && gestionUsuarios.isVisible()) {
-            gestionUsuarios.dispose();
+            dashA.showJPanel(new GestionUsuarios());
         }
 
         gestionUsuarios = new GestionUsuarios();  // Crear una nueva instancia
@@ -339,7 +341,7 @@ public class AppController {
             // Agregar el JTextField al contenedor
             usuariosDesactivados.add(mensajeTextField);
         } else {
-            usuariosDesactivados.mostrarTabla(usuarios);
+            usuariosDesactivados.mostrarTabla();
         }
         
         gestionUsuarios.setVisible(false);
@@ -435,8 +437,8 @@ public class AppController {
     // Llena la primera columna con las horas desde las 8:00 hasta las 21:00
     for (int hora = 9; hora <= 21; hora++) {
         modelo.addRow(new Object[]{String.format("%02d:00", hora)});
+        }
     }
-}
     public void buscarFecha(Date fechaSeleccionada){
         Reserva reserva = new Reserva();
         java.sql.Date fechaSQL = new java.sql.Date(fechaSeleccionada.getTime()); // Convertir a java.sql.Date

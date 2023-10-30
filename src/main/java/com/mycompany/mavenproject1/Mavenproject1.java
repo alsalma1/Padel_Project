@@ -12,14 +12,7 @@ public class Mavenproject1 {
         //Para conectar Java con la bse de datos
         Conexion objetoConexion = new Conexion();
         objetoConexion.establecerConexion();
-        
-        //Inicio paginaPrincipal = new Inicio() ;
-        //paginaPrincipal.setVisible(true);
-        
-        //PaginaPrincipalAdmin paginaPrincipalA = new PaginaPrincipalAdmin();
-        //paginaPrincipalA.setVisible(true);
-
-        AppController appController = new AppController();
-        appController.mostrarPistas("salma@gmail.com");
+        Dashboard principal = new Dashboard();
+        principal.setVisible(true);
     }
 }
