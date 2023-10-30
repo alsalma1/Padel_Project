@@ -142,6 +142,7 @@ public class ReservarPista extends javax.swing.JFrame {
             btnActualizar.setVisible(true);
             try {
                 fechaSeleccionada = sdf.parse(fechaFormateada);
+                System.out.println("fecha :" +fechaSeleccionada);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -264,6 +265,8 @@ public class ReservarPista extends javax.swing.JFrame {
                         int pista = col;
                         String emailUsuarioLogeado = getUserEmail();
                         appController.hacerLaReserva(hora, pista, fechaSeleccionada, emailUsuarioLogeado);
+                        //actualizarTabla(fechaSeleccionada);
+                        //obtenerFechaSeleccionada();
                     } else {
                         appController.avisarUsuario(getUserEmail());
                         tablePistas.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // Restablecer el cursor
@@ -274,6 +277,11 @@ public class ReservarPista extends javax.swing.JFrame {
                 }
             }
         });
+    }
+    
+    public void actualizarTabla(Date fecha){
+        // Establecer la fecha en el JDateChooser
+        fechaPista.setDate(fecha);
     }
     
     @SuppressWarnings("unchecked")

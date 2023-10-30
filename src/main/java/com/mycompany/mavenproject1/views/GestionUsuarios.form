@@ -33,10 +33,10 @@
                               <Component id="panelTable" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="741" max="-2" attributes="0"/>
-                              <Component id="addIcon" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="809" max="-2" attributes="0"/>
                               <Component id="returnIcon" min="-2" pref="41" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="addIcon" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -88,11 +88,8 @@
     </Component>
     <Component class="javax.swing.JLabel" name="returnIcon">
       <Properties>
-        <Property name="text" type="java.lang.String" value="  Atr&#xe1;s"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/img/returnIcon.png"/>
         </Property>
       </Properties>
       <Events>
@@ -104,11 +101,8 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="99" red="99" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="  A&#xf1;adir"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/img/plusIcon.png"/>
         </Property>
       </Properties>
       <Events>
@@ -158,7 +152,7 @@
             <Component class="javax.swing.JTable" name="tableUsuarios">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="10" rowCount="4">
+                  <Table columnCount="11" rowCount="4">
                     <Column editable="false" title="Email" type="java.lang.Object"/>
                     <Column editable="false" title="Nombre" type="java.lang.Object"/>
                     <Column editable="false" title="Apellido" type="java.lang.Object"/>
@@ -169,6 +163,7 @@
                     <Column editable="false" title="Socio" type="java.lang.Object"/>
                     <Column editable="false" title="Editar" type="java.lang.Object"/>
                     <Column editable="false" title="Eliminar" type="java.lang.Object"/>
+                    <Column editable="true" title="kkkkk" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -194,6 +189,11 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>

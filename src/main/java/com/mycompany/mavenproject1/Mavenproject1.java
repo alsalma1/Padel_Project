@@ -3,6 +3,8 @@ package com.mycompany.mavenproject1;
 import com.mycompany.mavenproject1.config.Conexion;
 import com.mycompany.mavenproject1.controllers.AppController;
 import com.mycompany.mavenproject1.views.Inicio;
+import com.mycompany.mavenproject1.views.PaginaPrincipalAdmin;
+import com.mycompany.mavenproject1.views.ReservarPista;
 
 public class Mavenproject1 {
 
@@ -11,10 +13,13 @@ public class Mavenproject1 {
         Conexion objetoConexion = new Conexion();
         objetoConexion.establecerConexion();
         
-        //Mostar el login del administrador
-        Inicio paginaPrincipal = new Inicio() ;
-        paginaPrincipal.setVisible(true);
-        //AppController appController = new AppController();
-        //appController.mostrarPistas("salma@gmail.com");
+        //Inicio paginaPrincipal = new Inicio() ;
+        //paginaPrincipal.setVisible(true);
+        
+        //PaginaPrincipalAdmin paginaPrincipalA = new PaginaPrincipalAdmin();
+        //paginaPrincipalA.setVisible(true);
+
+        AppController appController = new AppController();
+        appController.mostrarPistas("salma@gmail.com");
     }
 }

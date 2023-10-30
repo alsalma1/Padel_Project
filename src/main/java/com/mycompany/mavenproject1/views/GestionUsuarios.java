@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -45,8 +46,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        returnIcon.setText("  Atrás");
-        returnIcon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        returnIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/returnIcon.png"))); // NOI18N
         returnIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 returnIconMouseEntered(evt);
@@ -54,8 +54,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
         });
 
         addIcon.setBackground(new java.awt.Color(153, 153, 255));
-        addIcon.setText("  Añadir");
-        addIcon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        addIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/plusIcon.png"))); // NOI18N
         addIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 addIconMouseEntered(evt);
@@ -67,17 +66,17 @@ public class GestionUsuarios extends javax.swing.JFrame {
 
         tableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Email", "Nombre", "Apellido", "Contraseña", "Fecha nacimiento", "Teléfono", "DNI", "Socio", "Editar", "Eliminar"
+                "Email", "Nombre", "Apellido", "Contraseña", "Fecha nacimiento", "Teléfono", "DNI", "Socio", "Editar", "Eliminar", "kkkkk"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -129,10 +128,10 @@ public class GestionUsuarios extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(panelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(741, 741, 741)
-                                .addComponent(addIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(returnIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(809, 809, 809)
+                                .addComponent(returnIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(addIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(318, 318, 318)
@@ -203,10 +202,18 @@ public class GestionUsuarios extends javax.swing.JFrame {
       
         ButtonRenderer buttonRendererEdit = new ButtonRenderer();
         ButtonRenderer buttonRendererDelete = new ButtonRenderer();
+        ButtonRenderer buttonRendererIcono = new ButtonRenderer();
 
-        tableUsuarios.getColumnModel().getColumn(8).setCellRenderer(buttonRendererEdit);
-        tableUsuarios.getColumnModel().getColumn(9).setCellRenderer(buttonRendererDelete);
-        tableUsuarios.getColumnModel().getColumn(8).setCellEditor(new NonEditableEditor(new JTextField()));
+        // Crea un icono que deseas mostrar en la celda
+        Icon icono = new ImageIcon(getClass().getResource("/com/mycompany/mavenproject1/img/edit.png"));
+        Icon icono1 = new ImageIcon(getClass().getResource("/com/mycompany/mavenproject1/img/profile.png"));
+        // Asigna el renderizador personalizado a la columna
+        tableUsuarios.getColumnModel().getColumn(8).setCellRenderer(new IconRenderer(icono));
+        
+        //tableUsuarios.getColumnModel().getColumn(8).setCellRenderer(buttonRendererEdit);
+        tableUsuarios.getColumnModel().getColumn(9).setCellRenderer(new IconRenderer(icono1));
+        //tableUsuarios.getColumnModel().getColumn(10).setCellRenderer(buttonRendererIcono);
+        //tableUsuarios.getColumnModel().getColumn(8).setCellEditor(new NonEditableEditor(new JTextField()));
         
         for (Usuario usuario : usuarios) {
             buttonRendererEdit.setAction("editar");
@@ -221,7 +228,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
                     usuario.getDni(),
                     esSocio,
                     "Editar",
-                    "Eliminar"
+                    "Eliminar",
             };
             model.addRow(row);
         }

@@ -9,7 +9,7 @@ class ButtonRenderer extends DefaultTableCellRenderer {
     private JButton buttonEdit;
     private JButton buttonDelete;
     private JButton buttonActivar;
-    
+
     private boolean editActionExecuted = false;
     private boolean deleteActionExecuted = false;
     private boolean activarActionExecuted = false;
