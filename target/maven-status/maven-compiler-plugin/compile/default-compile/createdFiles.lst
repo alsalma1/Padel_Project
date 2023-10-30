@@ -16,12 +16,10 @@ com\mycompany\mavenproject1\views\EditarUsuario$11.class
 com\mycompany\mavenproject1\views\GestionUsuarios$1.class
 com\mycompany\mavenproject1\Dashboard.class
 com\mycompany\mavenproject1\views\MisReservas.class
-com\mycompany\mavenproject1\views\Inicio$4.class
 com\mycompany\mavenproject1\views\NonEditableEditor.class
 com\mycompany\mavenproject1\views\AñadirUsuario$13.class
 com\mycompany\mavenproject1\views\LoginUsuario$3.class
 com\mycompany\mavenproject1\DashboardAdmin$2.class
-com\mycompany\mavenproject1\views\Inicio$1.class
 com\mycompany\mavenproject1\views\ButtonRenderer.class
 com\mycompany\mavenproject1\views\ColorPrimeraColumna.class
 com\mycompany\mavenproject1\views\LoginAdmin$1.class
@@ -39,14 +37,12 @@ com\mycompany\mavenproject1\views\EditarUsuario$5.class
 com\mycompany\mavenproject1\views\PaginaPrincipalAdmin$1.class
 com\mycompany\mavenproject1\views\PaginaPrincipalAdmin.class
 com\mycompany\mavenproject1\views\AñadirUsuario$7.class
-com\mycompany\mavenproject1\views\GestionUsuarios$6.class
 com\mycompany\mavenproject1\views\MisReservas$1.class
 com\mycompany\mavenproject1\views\GestionReservasAdmin$1.class
 com\mycompany\mavenproject1\controllers\AppController.class
 com\mycompany\mavenproject1\DashboardAdmin$1.class
 com\mycompany\mavenproject1\views\ReservarPista$4.class
 com\mycompany\mavenproject1\views\AñadirUsuario$6.class
-com\mycompany\mavenproject1\views\GestionUsuarios$7.class
 com\mycompany\mavenproject1\views\EditarUsuario$6.class
 com\mycompany\mavenproject1\DashboardAdmin.class
 com\mycompany\mavenproject1\views\bienvenidoAdmin.class
@@ -58,7 +54,6 @@ com\mycompany\mavenproject1\views\IconRenderer.class
 com\mycompany\mavenproject1\views\LoginAdmin$2.class
 com\mycompany\mavenproject1\views\ReservarPista$3.class
 com\mycompany\mavenproject1\views\AñadirUsuario$11.class
-com\mycompany\mavenproject1\views\Inicio$2.class
 com\mycompany\mavenproject1\DashboardAdmin$3.class
 com\mycompany\mavenproject1\views\EditarUsuario$7.class
 com\mycompany\mavenproject1\views\LoginAdmin.class
@@ -73,11 +68,9 @@ com\mycompany\mavenproject1\views\MisReservas$2.class
 com\mycompany\mavenproject1\views\PerfilUsuario$2.class
 com\mycompany\mavenproject1\views\EditarUsuario$10.class
 com\mycompany\mavenproject1\views\AñadirUsuario$8.class
-com\mycompany\mavenproject1\views\GestionUsuarios$5.class
 com\mycompany\mavenproject1\views\PaginaPrincipalAdmin$4.class
 com\mycompany\mavenproject1\views\EditarUsuario$8.class
 com\mycompany\mavenproject1\views\GestionUsuarios$3.class
-com\mycompany\mavenproject1\views\Inicio$3.class
 com\mycompany\mavenproject1\Dashboard$1.class
 com\mycompany\mavenproject1\views\GestionPistas$1.class
 com\mycompany\mavenproject1\views\PerfilUsuario$3.class
@@ -92,7 +85,6 @@ com\mycompany\mavenproject1\views\GestionUsuarios$4.class
 com\mycompany\mavenproject1\views\AñadirUsuario$9.class
 com\mycompany\mavenproject1\views\PaginaPrincipalAdmin$3.class
 com\mycompany\mavenproject1\views\ReservarPista$1.class
-com\mycompany\mavenproject1\views\Inicio.class
 com\mycompany\mavenproject1\views\MisReservas$4.class
 com\mycompany\mavenproject1\views\EditarUsuario$9.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados$2.class

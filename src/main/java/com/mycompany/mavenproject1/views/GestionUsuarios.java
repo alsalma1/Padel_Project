@@ -39,7 +39,6 @@ public class GestionUsuarios extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(926, 540));
 
-<<<<<<< HEAD
         bg.setBackground(new java.awt.Color(255, 255, 255));
         bg.setToolTipText("");
         bg.setPreferredSize(new java.awt.Dimension(926, 540));
@@ -63,20 +62,6 @@ public class GestionUsuarios extends javax.swing.JPanel {
         btnDesactivados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDesactivadosActionPerformed(evt);
-=======
-        returnIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/returnIcon.png"))); // NOI18N
-        returnIcon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                returnIconMouseEntered(evt);
-            }
-        });
-
-        addIcon.setBackground(new java.awt.Color(153, 153, 255));
-        addIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/plusIcon.png"))); // NOI18N
-        addIcon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                addIconMouseEntered(evt);
->>>>>>> 2c6d3f6940337075328b53eac51122a720623c47
             }
         });
 
@@ -172,30 +157,8 @@ public class GestionUsuarios extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-<<<<<<< HEAD
                 .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-=======
-                .addComponent(labelUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(panelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(809, 809, 809)
-                                .addComponent(returnIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(addIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(318, 318, 318)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDesactivados)
-                        .addGap(26, 26, 26))))
->>>>>>> 2c6d3f6940337075328b53eac51122a720623c47
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

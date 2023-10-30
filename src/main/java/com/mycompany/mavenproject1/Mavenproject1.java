@@ -2,7 +2,6 @@ package com.mycompany.mavenproject1;
 
 import com.mycompany.mavenproject1.config.Conexion;
 import com.mycompany.mavenproject1.controllers.AppController;
-import com.mycompany.mavenproject1.views.Inicio;
 import com.mycompany.mavenproject1.views.PaginaPrincipalAdmin;
 import com.mycompany.mavenproject1.views.ReservarPista;
 

@@ -9,7 +9,6 @@ import com.mycompany.mavenproject1.views.EditarUsuario;
 import com.mycompany.mavenproject1.views.GestionPistas;
 import com.mycompany.mavenproject1.views.GestionReservasAdmin;
 import com.mycompany.mavenproject1.views.GestionUsuarios;
-import com.mycompany.mavenproject1.views.Inicio;
 import com.mycompany.mavenproject1.views.LoginAdmin;
 import com.mycompany.mavenproject1.views.LoginUsuario;
 import com.mycompany.mavenproject1.views.MisReservas;
@@ -54,8 +53,7 @@ public class AppController {
         Admin admin = new Admin(usuario, contrasena);
         if(admin.comprobarDatos()){
             // Las credenciales son válidas, abre la página principal del administrador
-            paginaPrincipalAdmin.setVisible(true);
-            login.setVisible(false);
+            dashA.setVisible(true);
         }
         else{
             JOptionPane.showMessageDialog(null, "Datos incorerctos, intenta otra vez!");
@@ -72,12 +70,6 @@ public class AppController {
         p.repaint();
     }
     /* ------------------ Usuario --------------------- */
-    public void mostrarLoginUsuario(Inicio inicio){
-        LoginUsuario loginUser = new LoginUsuario();
-        loginUser.setVisible(true);
-        inicio.setVisible(false);
-    }
-    
     public void comprobarCredencialesUsuario(String email, String contraseña, LoginUsuario loginUsu){
         Usuario user = new Usuario();
 
@@ -103,7 +95,7 @@ public class AppController {
         // Llamar al método obtenerUsuarios
         List<Usuario> usuarios = usuario.obtenerUsuarios();
         GestionUsuarios gestionUsuarios = new GestionUsuarios();
-        gestionUsuarios.cargarUsuariosEnTabla(usuarios);
+        gestionUsuarios.cargarUsuariosEnTabla();
 
         if (usuarios.isEmpty()) {
             gestionUsuarios.panelTable.setVisible(false);
@@ -118,7 +110,7 @@ public class AppController {
             // Agregar el JTextField al contenedor
             gestionUsuarios.add(mensajeTextField);
         } else {
-            gestionUsuarios.cargarUsuariosEnTabla(usuarios);
+            gestionUsuarios.cargarUsuariosEnTabla();
         }
         // Mostrar la ventana de GestionUsuarios
         gestionUsuarios.setVisible(true);
@@ -129,7 +121,7 @@ public class AppController {
         // Llamar al método obtenerUsuarios
         List<Usuario> usuarios = usuario.obtenerUsuarios();
         GestionUsuarios gestionUsuarios = new GestionUsuarios();
-        gestionUsuarios.cargarUsuariosEnTabla(usuarios);
+        gestionUsuarios.cargarUsuariosEnTabla();
     }
     public void añadirUsuario(String nombre, String apellido, String dni, String email, String telef, String socio, Date fecha){
         
@@ -276,7 +268,7 @@ public class AppController {
         }
 
         gestionUsuarios = new GestionUsuarios();  // Crear una nueva instancia
-        gestionUsuarios.cargarUsuariosEnTabla(usuarios);
+        gestionUsuarios.cargarUsuariosEnTabla();
 
         // Mostrar la ventana de GestionUsuarios
         gestionUsuarios.setVisible(true);

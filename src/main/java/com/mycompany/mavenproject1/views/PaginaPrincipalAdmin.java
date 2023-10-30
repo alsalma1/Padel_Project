@@ -111,8 +111,6 @@ public class PaginaPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_gestionPistasBtnActionPerformed
 
     private void cerrarSesionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionBtnActionPerformed
-        Inicio inicio = new Inicio();
-        inicio.setVisible(true);
         this.dispose(); // Cierra la ventana actual (PaginaPrincipalAdmin)
     }//GEN-LAST:event_cerrarSesionBtnActionPerformed
 
