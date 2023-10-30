@@ -1,6 +1,7 @@
 package com.mycompany.mavenproject1.controllers;
 
 import com.mycompany.mavenproject1.DashboardAdmin;
+import com.mycompany.mavenproject1.DashboardUsuario;
 import com.mycompany.mavenproject1.models.Admin;
 import com.mycompany.mavenproject1.models.Reserva;
 import com.mycompany.mavenproject1.models.Usuario;
@@ -42,6 +43,7 @@ public class AppController {
     public static ReservarPista reservarPista = new ReservarPista();
     public static MisReservas misReservas = new MisReservas();
     public static DashboardAdmin dashA = new DashboardAdmin();
+    public static DashboardUsuario dashU = new DashboardUsuario();
     private static final GestionPistas viewGestion = new GestionPistas();
     private static final PaginaPrincipalAdmin viewAdminPanel = new PaginaPrincipalAdmin();
     
@@ -77,12 +79,13 @@ public class AppController {
         user.setContrasena(contraseña);
         String nombre = user.obtenerNombre();
         if(user.comprobarDatosUsuario()){
-            String texto = paginaPrincipalUsuario.labelUsu.getText()+" "+nombre;
+            //String texto = paginaPrincipalUsuario.labelUsu.getText()+" "+nombre;
             // Las credenciales son válidas, abre la página principal del usuario
-            paginaPrincipalUsuario.setUserEmail(email);
-            paginaPrincipalUsuario.labelUsu.setText(texto);
-            paginaPrincipalUsuario.setVisible(true);
+            //paginaPrincipalUsuario.setUserEmail(email);
+            //paginaPrincipalUsuario.labelUsu.setText(texto);
+            //paginaPrincipalUsuario.setVisible(true);
             loginUsu.setVisible(false);
+            dashU.setVisible(true);
         }
         else{
             JOptionPane.showMessageDialog(null, "¡Datos incorerctos o usuario no registrado en el sistema, intenta otra vez!");

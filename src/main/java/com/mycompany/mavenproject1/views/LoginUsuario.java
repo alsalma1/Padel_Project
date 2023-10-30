@@ -132,7 +132,6 @@ public class LoginUsuario extends javax.swing.JPanel {
     private void btnLoginUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginUsuActionPerformed
         String email = fieldEmailUsu.getText();
         String contrasena = String.valueOf(fieldPasswordUsu.getPassword());
-
         // Llamar al método comprobarCredenciales
         AppController appController = new AppController();
         appController.comprobarCredencialesUsuario(email, contrasena, this);
