@@ -4,8 +4,8 @@ import java.sql.*;
 import com.mycompany.mavenproject1.config.Conexion;
 import java.sql.Connection;
 import javax.swing.SwingWorker;
-import com.mycompany.mavenproject1.views.ConfirmarInsercionDatos;
 import com.mycompany.mavenproject1.views.GestionPistas;
+import javax.swing.JOptionPane;
 public class Pista {
     private int id_pista;
     private String estado;
@@ -94,14 +94,11 @@ public class Pista {
                     //Cerrar recursos
                     preparedStatement.close();
                     connection.close();
-                    ConfirmarInsercionDatos viewConfirmarDatos = new ConfirmarInsercionDatos();
                     if (filasAfectadas > 0) {
-                        gestionPistas.setVisible(false);
-                        viewConfirmarDatos.setVisible(true);
-                        ConfirmarInsercionDatos.labelConfirmar.setText("Se ha insertado la pista correctamente!");
+                        JOptionPane.showMessageDialog(null,"Pista añadida correctamente!");
+                        GestionPistas.actualizarTablaPistas();
                     } else {
-                        viewConfirmarDatos.setVisible(true);
-                        ConfirmarInsercionDatos.labelConfirmar.setText("ERROR");
+                        JOptionPane.showMessageDialog(null,"ERROR");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

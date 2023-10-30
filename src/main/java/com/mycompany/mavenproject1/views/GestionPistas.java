@@ -15,41 +15,30 @@ import javax.swing.JTable;
 import javax.swing.DefaultCellEditor;
 import javax.swing.table.TableColumn;
 import javax.swing.JScrollPane;
-public class GestionPistas extends javax.swing.JFrame {
+public class GestionPistas extends javax.swing.JPanel {
 
     public GestionPistas() {
         initComponents();
-       
-        setTitle("Gestión de Pistas");
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
-        setLocationRelativeTo(null); // Centra la ventana en la pantalla
-        
-        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Container = new javax.swing.JPanel();
+        bg = new javax.swing.JPanel();
         bAddPista = new javax.swing.JButton();
-        bSalirGestionPistas = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePistas = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(926, 540));
+
+        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setPreferredSize(new java.awt.Dimension(926, 540));
 
         bAddPista.setText("Añadir");
         bAddPista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAddPistaActionPerformed(evt);
-            }
-        });
-
-        bSalirGestionPistas.setText("Salir");
-        bSalirGestionPistas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSalirGestionPistasActionPerformed(evt);
             }
         });
 
@@ -112,85 +101,83 @@ public class GestionPistas extends javax.swing.JFrame {
             }
         });
         // Agregar la tabla a un contenedor
-        Container.add(jScrollPane1);
+        bg.add(jScrollPane1);
         tablePistas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablePistas);
 
-        javax.swing.GroupLayout ContainerLayout = new javax.swing.GroupLayout(Container);
-        Container.setLayout(ContainerLayout);
-        ContainerLayout.setHorizontalGroup(
-            ContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContainerLayout.createSequentialGroup()
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Gestion de pistas");
+
+        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
+        bg.setLayout(bgLayout);
+        bgLayout.setHorizontalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgLayout.createSequentialGroup()
                 .addGap(115, 115, 115)
-                .addGroup(ContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(ContainerLayout.createSequentialGroup()
-                        .addComponent(bAddPista, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bSalirGestionPistas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bAddPista, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
-        ContainerLayout.setVerticalGroup(
-            ContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContainerLayout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addGroup(ContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bAddPista, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bSalirGestionPistas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+        bgLayout.setVerticalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bAddPista, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 71, 71))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void bAddPistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddPistaActionPerformed
        Pista.addPista(GestionPistas.this);
-       DefaultTableModel modelo = new DefaultTableModel();
-       ArrayList<Pista> pistas = null;
-       try {
-           pistas = Pista.obtenerPistasDB();
-       } catch (SQLException ex) {
-           // Manejo de excepciones
-       }
-       modelo.setRowCount(0);
-       for (Pista pista : pistas) {
-            Object[] newRow = {pista.getId_pista(), pista.getEstado()};
-            modelo.addRow(newRow); 
-        }
-       Container.setVisible(false);
-       Container.setVisible(true);
     }//GEN-LAST:event_bAddPistaActionPerformed
-
-    private void bSalirGestionPistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirGestionPistasActionPerformed
-        AppController appController = new AppController();
-        appController.salirGestionPistas(this);
-    }//GEN-LAST:event_bSalirGestionPistasActionPerformed
-    
+    public static void actualizarTablaPistas() {
+        DefaultTableModel modelo = (DefaultTableModel) tablePistas.getModel();
+        modelo.setRowCount(0);
+        ArrayList<Pista> pistas = null;
+        try {
+            pistas = Pista.obtenerPistasDB();
+        } catch (SQLException ex) {
+            // Manejo de excepciones
+        }
+        for (Pista pista : pistas) {
+            Object[] newRow = {pista.getId_pista(), pista.getEstado()};
+            modelo.addRow(newRow);
+        }
+        modelo.fireTableDataChanged();
+    }
     
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JPanel Container;
     private javax.swing.JButton bAddPista;
-    private javax.swing.JButton bSalirGestionPistas;
+    public static javax.swing.JPanel bg;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tablePistas;
     // End of variables declaration//GEN-END:variables

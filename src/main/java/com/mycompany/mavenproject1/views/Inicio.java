@@ -99,14 +99,6 @@ public class Inicio extends javax.swing.JFrame {
         btnUser.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnUserMouseEntered
 
-    public static void main(String args[]) {
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Inicio().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmin;

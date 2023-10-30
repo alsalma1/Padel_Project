@@ -147,13 +147,6 @@ public class PaginaPrincipalUsuario extends javax.swing.JFrame {
         appController.mostrarPerfilUsuario(PaginaPrincipalUsuario.this, email);
     }//GEN-LAST:event_btnPerfilMouseClicked
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PaginaPrincipalUsuario().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnPerfil;

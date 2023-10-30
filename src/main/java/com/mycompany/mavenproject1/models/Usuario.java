@@ -1,4 +1,4 @@
-package com.mycompany.mavenproject1.models;
+    package com.mycompany.mavenproject1.models;
 
 import com.mycompany.mavenproject1.config.Conexion;
 import java.sql.Connection;
@@ -98,7 +98,7 @@ public class Usuario {
     
     //Metododos
 
-    public List<Usuario> obtenerUsuarios() {
+    public static List<Usuario> obtenerUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
@@ -357,7 +357,7 @@ public class Usuario {
         }
     }
     
-    public List<Usuario> obtenerUsuariosDesactivados() {
+    public static List<Usuario> obtenerUsuariosDesactivados() {
         List<Usuario> usuarios = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;

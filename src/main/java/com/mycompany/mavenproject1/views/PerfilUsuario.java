@@ -138,13 +138,6 @@ public class PerfilUsuario extends javax.swing.JFrame {
         //appController.volverAtras(PerfilUsuario.this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PerfilUsuario().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
