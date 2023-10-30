@@ -139,7 +139,7 @@ public class PaginaPrincipalUsuario extends javax.swing.JFrame {
 
     private void btnReservarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservarMouseClicked
         String email = this.getUserEmail();
-        appController.mostrarPistas();
+        appController.mostrarPistas(userEmail);
     }//GEN-LAST:event_btnReservarMouseClicked
 
     private void btnPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilMouseClicked

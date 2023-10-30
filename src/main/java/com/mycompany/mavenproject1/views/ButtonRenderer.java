@@ -9,7 +9,7 @@ class ButtonRenderer extends DefaultTableCellRenderer {
     private JButton buttonEdit;
     private JButton buttonDelete;
     private JButton buttonActivar;
-    
+
     private boolean editActionExecuted = false;
     private boolean deleteActionExecuted = false;
     private boolean activarActionExecuted = false;
@@ -40,10 +40,23 @@ class ButtonRenderer extends DefaultTableCellRenderer {
         }
     }
 
-    public void buttonDeleteAction(String dni, GestionUsuarios gestionUsuarios) {
+    public void buttonDeleteAction(String dni, Object objeto) {
         if (!deleteActionExecuted) {
             AppController appController = new AppController();
-            appController.desactivarUsuario(dni, gestionUsuarios);
+            if(objeto instanceof GestionUsuarios){
+                GestionUsuarios gestionUsuarios = new GestionUsuarios();
+                appController.desactivarUsuario(dni, gestionUsuarios);
+            }
+            deleteActionExecuted = true;
+        }
+    }
+    public void buttonDeleteAction(int idReserva, Object objeto){
+        if (!deleteActionExecuted) {
+            AppController appController = new AppController();
+            if(objeto instanceof MisReservas){
+                MisReservas misReservas = new MisReservas();
+                appController.eliminarReserva(idReserva, misReservas);
+            }
             deleteActionExecuted = true;
         }
     }
@@ -64,7 +77,7 @@ class ButtonRenderer extends DefaultTableCellRenderer {
             } else if (action.equals("editar")) {
                 return buttonEdit;  // Devolver el botón de edición para la columna 8
             }
-        } else if (column == 9) {
+        } else if (column == 9 || column == 4) {
             return buttonDelete;
         }
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);

@@ -1,41 +1,48 @@
 package com.mycompany.mavenproject1.views;
 
 import com.mycompany.mavenproject1.controllers.AppController;
+import com.mycompany.mavenproject1.models.Reserva;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 public class ReservarPista extends javax.swing.JFrame {
     private static AppController appController = new AppController();
-    
-    private String hora;
-    private int id_pista;
-    
-    public int getId_pista() {
-        return id_pista;
-    }
-
-    public void setId_pista(int id_pista) {
-        this.id_pista = id_pista;
-    }
-    
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
-    
+        
     private List<String> horas = new ArrayList<>();
     private List<Integer> pistas = new ArrayList<>();
+    //Para guardar las horas y pistas de las reservas del usuario
+    private List<String> horasUsuario = new ArrayList<>();
+    private List<Integer> pistasUsuario = new ArrayList<>();
     
+    private List<Integer> pistasEnMantenimiento = new ArrayList<>();
+    private Date fechaSeleccionada;
+    private String userEmail;
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
     public List<String> getHoras() {
         return horas;
     }
@@ -43,9 +50,23 @@ public class ReservarPista extends javax.swing.JFrame {
     public List<Integer> getPistas() {
         return pistas;
     }
+    //
+     public List<String> getHorasUsuario() {
+        return horasUsuario;
+    }
+
+    public List<Integer> getPistasUsuario() {
+        return pistasUsuario;
+    }
+    //
+    public List<Integer> getPistasMantenimiento() {
+        return pistasEnMantenimiento;
+    }
     
     public ReservarPista() {
         initComponents();
+        setTitle("Reservar pista");
+        setLocationRelativeTo(null);
         // Cambiar el tamaño de la columna 0
         TableColumn column = tablePistas.getColumnModel().getColumn(0);
         column.setPreferredWidth(12);
@@ -53,9 +74,42 @@ public class ReservarPista extends javax.swing.JFrame {
 
         configurarFechaPistaListener();
         llenarPrimeraColumnaConHoras();
+        //cambiarColorPrimeraFila();
+        
+        tablePistas.setEnabled(true);
+        usuarioReservaPista();
+        // Agregar un MouseListener a la tabla
     }
     
+    public void showPistasMantenimiento(List<Integer> lista){
+        for (int idPista : lista) {
+            // Obtén el número de columna basado en el ID de Pista
+            int colIndex = idPista;
+
+            // Verifica si el índice de la columna es válido
+            if (colIndex >= 1 && colIndex < tablePistas.getColumnCount()) {
+                // Obtén el modelo de la tabla
+                DefaultTableModel model = (DefaultTableModel) tablePistas.getModel();
+                     
+                // Itera a través de todas las filas de la tabla
+                for (int row = 0; row < model.getRowCount(); row++) {
+                    // Cambia el valor de la celda en la columna especificada a "Mantenimiento"
+                    model.setValueAt("Mantenimiento", row, colIndex);
+                }
+                
+                CustomCellRenderer customRenderer = new CustomCellRenderer();
+                for (int i = 1; i < tablePistas.getColumnCount(); i++) {
+                    tablePistas.getColumnModel().getColumn(i).setCellRenderer(customRenderer);
+                }
+            }
+        }
+    }
+
     private void configurarFechaPistaListener() {
+        if(fechaPista.getDate()==null){
+            btnActualizar.setVisible(false);
+        }
+        
         fechaPista.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -64,59 +118,45 @@ public class ReservarPista extends javax.swing.JFrame {
                 }
             }
         });
-    }
         
-    /*private void obtenerFechaSeleccionada() {
-        Date fechaSeleccionada = fechaPista.getDate();
-        if (fechaSeleccionada != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato de fecha
-            String fechaFormateada = sdf.format(fechaSeleccionada);
+        // Obtén la fecha actual
+        Date fechaActual = new Date();
 
-            // Crear una nueva fecha con el formato deseado
-            try {
-                fechaSeleccionada = sdf.parse(fechaFormateada);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        // Crea un calendario y agrega 7 días a la fecha actual
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaActual);
+        calendar.add(Calendar.DAY_OF_MONTH, 7);
+        Date fechaMaxima = calendar.getTime();
 
-            appController.buscarFecha(fechaSeleccionada);
-            StringBuilder labelTextText = new StringBuilder();
-
-            // Recorrer las listas de horas y pistas
-            for (int i = 0; i < horas.size(); i++) {
-                labelTextText.append("Hora: ").append(horas.get(i)).append(" Pista: ").append(pistas.get(i)).append("\n");
-                System.out.println("Hora: "+horas.get(i)+" - Pista: "+pistas.get(i));
-            }
-            labelText.setText(labelTextText.toString());
-            
-            // Obtén el modelo de la tabla y establece el renderizador personalizado en la columna 1 y siguientes
-            CustomCellRenderer customRenderer = new CustomCellRenderer(horas, pistas);
-            for (int i = 1; i < tablePistas.getColumnCount(); i++) {
-                tablePistas.getColumnModel().getColumn(i).setCellRenderer(customRenderer);
-            }
-        }    
-    }*/
+        // Establece los límites mínimo y máximo para el JDateChooser
+        fechaPista.setMinSelectableDate(fechaActual);
+        fechaPista.setMaxSelectableDate(fechaMaxima);
+    }
+ 
     private void obtenerFechaSeleccionada() {
-        Date fechaSeleccionada = fechaPista.getDate();
+        fechaSeleccionada = fechaPista.getDate();
         if (fechaSeleccionada != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato de fecha
             String fechaFormateada = sdf.format(fechaSeleccionada);
-
-            // Crear una nueva fecha con el formato deseado
+            //Crear una nueva fecha con el formato deseado
+            btnActualizar.setVisible(true);
             try {
                 fechaSeleccionada = sdf.parse(fechaFormateada);
+                System.out.println("fecha :" +fechaSeleccionada);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
             appController.buscarFecha(fechaSeleccionada);
-            //Obtiene el modelo de la tabla, que es necesario para actualizar las celdas.
+            // Obtén el modelo de la tabla, que es necesario para actualizar las celdas.
             DefaultTableModel model = (DefaultTableModel) tablePistas.getModel();
 
-            // Limpiar todas las celdas de la tabla (Garantizar que la tabla se actualice correctamente al seleccionar una nueva fecha)
+            // Recorre la tabla y borra las celdas reservadas
             for (int row = 0; row < model.getRowCount(); row++) {
                 for (int col = 1; col < model.getColumnCount(); col++) {
-                    model.setValueAt("", row, col);
+                    if ("Reservado".equals(model.getValueAt(row, col))) {
+                        model.setValueAt("", row, col);
+                    }
                 }
             }
 
@@ -134,21 +174,114 @@ public class ReservarPista extends javax.swing.JFrame {
                 // Actualizar el valor de la celda en la tabla
                 model.setValueAt("Reservado", rowIndex, colIndex);
             }
+
             // Obtén el modelo de la tabla y establece el renderizador personalizado en la columna 1 y siguientes
             CustomCellRenderer customRenderer = new CustomCellRenderer();
             for (int i = 1; i < tablePistas.getColumnCount(); i++) {
                 tablePistas.getColumnModel().getColumn(i).setCellRenderer(customRenderer);
-            }
+            } 
+            mostrarReservasUsuario(fechaFormateada);
+        }
+        else{
+            btnActualizar.setVisible(false);
         }
     }
+    
+    public void mostrarReservasUsuario(String fecha){
+        appController.userReservas(fecha);
+        // Obtén el modelo de la tabla, que es necesario para actualizar las celdas.
+        DefaultTableModel model = (DefaultTableModel) tablePistas.getModel();
+
+        // Recorre la tabla y borra las celdas reservadas
+        for (int row = 0; row < model.getRowCount(); row++) {
+            for (int col = 1; col < model.getColumnCount(); col++) {
+                if ("reservaUsuario".equals(model.getValueAt(row, col))) {
+                    model.setValueAt("", row, col);
+                }
+            }
+        }
+
+        // Llenar las celdas correspondientes en la tabla
+        for (int i = 0; i < horasUsuario.size(); i++) {
+            String hora = horasUsuario.get(i);
+            int pista = pistasUsuario.get(i);
+            // Encontrar la fila correspondiente a la hora
+            int rowIndex = Integer.parseInt(hora.substring(0, 2)) - 9;
+
+            // Encontrar la columna correspondiente a la pista
+            int colIndex = pista;
+
+            // Actualizar el valor de la celda en la tabla
+            model.setValueAt("reservaUsuario", rowIndex, colIndex);
+        }
+
+        // Obtén el modelo de la tabla y establece el renderizador personalizado en la columna 1 y siguientes
+        CustomCellRenderer customRenderer = new CustomCellRenderer();
+        for (int i = 1; i < tablePistas.getColumnCount(); i++) {
+            tablePistas.getColumnModel().getColumn(i).setCellRenderer(customRenderer);
+        } 
+    }   
 
     private void llenarPrimeraColumnaConHoras() {
+        // Crea una instancia del renderizador personalizado
+        ColorPrimeraColumna firstColumnRenderer = new ColorPrimeraColumna(); // Cambia Color.RED al color que desees
+
+        // Establece el renderizador en la primera columna
+        tablePistas.getColumnModel().getColumn(0).setCellRenderer(firstColumnRenderer);
         DefaultTableModel model = (DefaultTableModel) tablePistas.getModel();
         model.setRowCount(0);
         // Llena la primera columna con las horas desde las 8:00 hasta las 21:00
         for (int hora = 9; hora <= 21; hora++) {
             model.addRow(new Object[]{String.format("%02d:00", hora)});
         }
+    }
+    
+    private void cambiarColorPrimeraFila(){
+        // Establece el fondo verde para el encabezado de la tabla
+        JTableHeader header = tablePistas.getTableHeader();
+        header.setBackground(Color.decode("#6aa9e9")); // Establece el fondo del encabezado
+        TableCellRenderer headerRenderer = header.getDefaultRenderer();
+        if (headerRenderer instanceof DefaultTableCellRenderer) {
+            ((DefaultTableCellRenderer) headerRenderer).setHorizontalAlignment(SwingConstants.CENTER);
+            Font headerFont = new Font(((DefaultTableCellRenderer) headerRenderer).getFont().getName(), Font.BOLD, ((DefaultTableCellRenderer) headerRenderer).getFont().getSize());
+            ((DefaultTableCellRenderer) headerRenderer).setFont(headerFont);
+        }
+    }
+        
+    public void usuarioReservaPista(){
+        tablePistas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (fechaPista.getDate() != null) {
+                    int row = tablePistas.getSelectedRow();
+                    int col = tablePistas.getSelectedColumn();
+
+                    // Verificar si la celda está vacía (sin texto)
+                    DefaultTableModel model = (DefaultTableModel) tablePistas.getModel();
+                    Object cellValue = model.getValueAt(row, col);
+                    if (row >= 0 && col >= 1 && model.getValueAt(row, col) == null) {
+                        tablePistas.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        String hora = (String) model.getValueAt(row, 0);
+                        int pista = col;
+                        String emailUsuarioLogeado = getUserEmail();
+                        appController.hacerLaReserva(hora, pista, fechaSeleccionada, emailUsuarioLogeado);
+                        //actualizarTabla(fechaSeleccionada);
+                        //obtenerFechaSeleccionada();
+                    } else {
+                        appController.avisarUsuario(getUserEmail());
+                        tablePistas.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // Restablecer el cursor
+                    }
+                }else {
+                    // Aviso al usuario para seleccionar una fecha primero
+                    JOptionPane.showMessageDialog(null, "Selecciona una fecha antes de hacer una reserva.");
+                }
+            }
+        });
+    }
+    
+    public void actualizarTabla(Date fecha){
+        // Establecer la fecha en el JDateChooser
+        fechaPista.setDate(fecha);
     }
     
     @SuppressWarnings("unchecked")
@@ -162,6 +295,12 @@ public class ReservarPista extends javax.swing.JFrame {
         tablePistas = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        btnActualizar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -247,16 +386,69 @@ public class ReservarPista extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Ocupada");
+        jLabel2.setText("Mantenimiento");
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 0));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Ocupada");
+
+        btnActualizar.setText("Actualizar tabla");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnVolver.setText("Panel usuario");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBackground(new java.awt.Color(40, 152, 238));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("Mis reservas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
@@ -264,8 +456,16 @@ public class ReservarPista extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -273,15 +473,23 @@ public class ReservarPista extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78)
+                        .addComponent(btnActualizar)
+                        .addGap(24, 24, 24)
+                        .addComponent(btnVolver)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -295,13 +503,35 @@ public class ReservarPista extends javax.swing.JFrame {
 
     }//GEN-LAST:event_fechaPistaPropertyChange
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        obtenerFechaSeleccionada();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        AppController appController = new AppController();
+        appController.volverAtras(this);
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ReservarPista().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnVolver;
     private com.toedter.calendar.JDateChooser fechaPista;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablePistas;
     // End of variables declaration//GEN-END:variables

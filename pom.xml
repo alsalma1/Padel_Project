@@ -7,16 +7,6 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf</artifactId>
-            <version>3.2.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf-intellij-themes</artifactId>
-            <version>3.2.5</version>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.26</version>
@@ -27,9 +17,16 @@
             <version>1.4</version>
         </dependency>
         <dependency>
-            <groupId>org.netbeans.external</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>RELEASE190</version>
+            <groupId>org.tomitribe.jkta</groupId>
+            <artifactId>jkta</artifactId>
+            <version>0.12</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version> <!-- Utiliza la última versión disponible -->
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <properties>
