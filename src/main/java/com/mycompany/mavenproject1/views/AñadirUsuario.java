@@ -1,20 +1,22 @@
 package com.mycompany.mavenproject1.views;
 
 import com.mycompany.mavenproject1.controllers.AppController;
+import com.mycompany.mavenproject1.models.Usuario;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 
 public class AñadirUsuario extends javax.swing.JPanel {
 
     private AppController appController = new AppController();
     private String filePath;
+    private String fileName;
     
     public void setAppController(AppController appController) {
         this.appController = appController;
@@ -44,6 +46,7 @@ public class AñadirUsuario extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         btnFile = new javax.swing.JButton();
         fieldEmail = new javax.swing.JTextField();
+        returnIcon = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         fieldDni = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -63,12 +66,10 @@ public class AñadirUsuario extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(926, 540));
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
-        bg.setForeground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(926, 540));
 
         fieldFecha.setDateFormatString("yyyy-MM-dd");
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Fecha nacimiento");
 
         btnFile.setBackground(new java.awt.Color(204, 204, 204));
@@ -80,7 +81,6 @@ public class AñadirUsuario extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Email");
 
         fieldDni.addActionListener(new java.awt.event.ActionListener() {
@@ -94,17 +94,13 @@ public class AñadirUsuario extends javax.swing.JPanel {
             }
         });
 
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Imagen");
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Apellido");
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Teléfono");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Añadir nuevo usuario");
 
         btnCancelar.setText("Cancelar");
@@ -121,7 +117,6 @@ public class AñadirUsuario extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Socio");
 
         fieldNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +147,6 @@ public class AñadirUsuario extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nombre");
 
         boxSocio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sí", "No" }));
@@ -162,7 +156,6 @@ public class AñadirUsuario extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("DNI");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -176,18 +169,14 @@ public class AñadirUsuario extends javax.swing.JPanel {
                         .addGap(25, 25, 25)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9)
                                 .addGap(68, 68, 68)
-                                .addComponent(btnFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(12, 12, 12))
+                                .addComponent(btnFile, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(bgLayout.createSequentialGroup()
-                                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(17, 17, 17)))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
                                 .addGap(48, 48, 48)
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(bgLayout.createSequentialGroup()
@@ -205,7 +194,9 @@ public class AñadirUsuario extends javax.swing.JPanel {
                 .addGap(483, 483, 483))
             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(bgLayout.createSequentialGroup()
-                    .addGap(208, 208, 208)
+                    .addGap(146, 146, 146)
+                    .addComponent(returnIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(bgLayout.createSequentialGroup()
                             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -222,19 +213,19 @@ public class AñadirUsuario extends javax.swing.JPanel {
                                         .addComponent(fieldApellido)
                                         .addComponent(fieldDni)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                                    .addComponent(jLabel5)
                                     .addGap(18, 18, 18)
-                                    .addComponent(fieldFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+                                    .addComponent(fieldFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGap(40, 40, 40))
                         .addGroup(bgLayout.createSequentialGroup()
                             .addGap(8, 8, 8)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(452, 452, 452)))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap(269, Short.MAX_VALUE)
+                .addContainerGap(257, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(btnFile))
@@ -258,26 +249,31 @@ public class AñadirUsuario extends javax.swing.JPanel {
             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(bgLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(31, 31, 31)
                     .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(bgLayout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jLabel1))
-                        .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(22, 22, 22)
-                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(fieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(25, 25, 25)
-                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addComponent(fieldDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(26, 26, 26)
-                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addComponent(fieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(306, 306, 306)))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(31, 31, 31)
+                            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(bgLayout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jLabel1))
+                                .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(22, 22, 22)
+                            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(fieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(25, 25, 25)
+                            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(fieldDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(26, 26, 26)
+                            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(fieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(bgLayout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(returnIcon)))
+                    .addContainerGap()))
         );
 
         Calendar calendar = Calendar.getInstance();
@@ -290,11 +286,17 @@ public class AñadirUsuario extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -337,7 +339,23 @@ public class AñadirUsuario extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "El DNI o NIE no tiene un formato válido", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
             }
             else{
+                // Guardar la ruta de la imagen en la base de datos
+                Usuario user = new Usuario();
+                user.setDni(dni);
+                user.setFoto(fileName);
+                // Generar el nombre de archivo de destino con la extensión
+                String extension = getExtension(new File(fileName));
+                String nombreArchivoDestino = dni + extension;
+
+                // Copiar la imagen al directorio "sources"
+                String destinoEnResources = "src/main/resources/imagenes_usua/" + fileName;
+                appController.guardarImagenEnCarpetaResources(filePath, destinoEnResources);
+
+                //appController.copiarImagen(filePath, destinationPath);
+                //appController.copiarImagen(filePath, destinationPath);
                 appController.añadirUsuario(nombre, apellido, dni, email, telef, socio, fecha);
+                user.guardarImagen();
+
                 limpiarCampos();
             }
         }
@@ -390,22 +408,34 @@ public class AñadirUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldDniKeyTyped
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
         appController.showJPanelDashboardAdmin(new GestionUsuarios());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private String getExtension(File file){
+        String name = file.getName();
+        int lastIndexOf = name.lastIndexOf(".");
+        if (lastIndexOf == -1) {
+            return null; // No se encontró una extensión
+        }
+        return name.substring(lastIndexOf);
+    }
     private void btnFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileActionPerformed
         JFileChooser jFileChooser = new JFileChooser();
-        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JPG, PNG", "jpg", "png");
+        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("Imágenes (JPG, PNG)", "jpg", "png");
         jFileChooser.setFileFilter(filtrado);
         int respuesta = jFileChooser.showOpenDialog(this);
-        
+
         if (respuesta == JFileChooser.APPROVE_OPTION) {
-        // El usuario ha seleccionado un archivo
-        File selectedFile = jFileChooser.getSelectedFile();
-        filePath = selectedFile.getAbsolutePath(); // Guarda la ruta del archivo
-        //lblFilePath.setText("Ruta del archivo: " + filePath);
-    }
+            // El usuario ha seleccionado un archivo
+            File selectedFile = jFileChooser.getSelectedFile();
+            filePath = selectedFile.getAbsolutePath(); // Guarda la ruta del archivo
+            fileName = selectedFile.getName();
+            // Obtener la extensión del archivo
+            String extension = getExtension(selectedFile);
+            if (extension != null) {
+
+            }
+        } 
     }//GEN-LAST:event_btnFileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -429,5 +459,6 @@ public class AñadirUsuario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel returnIcon;
     // End of variables declaration//GEN-END:variables
 }

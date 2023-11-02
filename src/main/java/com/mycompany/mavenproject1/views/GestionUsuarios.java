@@ -1,17 +1,14 @@
 package com.mycompany.mavenproject1.views;
-
 import com.mycompany.mavenproject1.controllers.AppController;
 import com.mycompany.mavenproject1.models.Usuario;
-import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class GestionUsuarios extends javax.swing.JPanel {
@@ -54,7 +51,7 @@ public class GestionUsuarios extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Email", "Nombre", "Apellido", "Contraseña", "Fecha nacimiento", "Teléfono", "DNI", "Socio", "Editar", "Eliminar", "kkkkk"
+                "Email", "Nombre", "Apellido", "Contraseña", "Fecha nacimiento", "Teléfono", "DNI", "Socio", "Imagen" , "Editar", "Eliminar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -70,6 +67,7 @@ public class GestionUsuarios extends javax.swing.JPanel {
             tableUsuarios.getColumnModel().getColumn(0).setResizable(false);
             tableUsuarios.getColumnModel().getColumn(0).setPreferredWidth(150);
             tableUsuarios.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tableUsuarios.getColumnModel().getColumn(4).setPreferredWidth(110);
         }
 
         javax.swing.GroupLayout panelTableLayout = new javax.swing.GroupLayout(panelTable);
@@ -161,25 +159,33 @@ public class GestionUsuarios extends javax.swing.JPanel {
         appController.showJPanelDashboardAdmin(new AñadirUsuario());
     }//GEN-LAST:event_addBtnActionPerformed
 
-
-
     public void cargarUsuariosEnTabla() {
         List<Usuario> usuarios = null;
-        
         usuarios = Usuario.obtenerUsuarios();
-        
         DefaultTableModel model = (DefaultTableModel) tableUsuarios.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
       
         ButtonRenderer buttonRendererEdit = new ButtonRenderer();
         ButtonRenderer buttonRendererDelete = new ButtonRenderer();
-
-        //tableUsuarios.getColumnModel().getColumn(10).setCellRenderer(buttonRendererIcono);
-        //tableUsuarios.getColumnModel().getColumn(8).setCellEditor(new NonEditableEditor(new JTextField()));
         
+        // Crea un icono que deseas mostrar en la celda
+        Icon icono = new ImageIcon(getClass().getResource("/edit.png"));
+        Icon icono1 = new ImageIcon(getClass().getResource("/eliminar.png"));
+        // Asigna el renderizador personalizado a la columna
+        tableUsuarios.getColumnModel().getColumn(9).setCellRenderer(new IconRenderer(icono));        
+        tableUsuarios.getColumnModel().getColumn(10).setCellRenderer(new IconRenderer(icono1));
+        tableUsuarios.getColumnModel().getColumn(8).setCellRenderer(new ImageRenderer());
         for (Usuario usuario : usuarios) {
             buttonRendererEdit.setAction("editar");
             String esSocio = usuario.getSocio() ? "Sí" : "No";
+            // Obtener el nombre de la imagen con extensión
+            String nombreImagen = usuario.getFoto();
+            //String[] parts = nombreImagen.split("\\.");
+            //String extension = "." + parts[parts.length - 1];
+            // Obtener la extensión del nombre de la imagen
+            //String nombreImage = usuario.getDni()+extension;
+            String rutaImagen = "src/main/resources/imagenes_usua/" + nombreImagen;
+            ImageIcon imagen = cargarImagen(rutaImagen, 80, 80);
             Object[] row = {
                     usuario.getEmail(),
                     usuario.getNombre(),
@@ -189,12 +195,13 @@ public class GestionUsuarios extends javax.swing.JPanel {
                     usuario.getTelefono(),
                     usuario.getDni(),
                     esSocio,
+                    imagen,
                     "Editar",
                     "Eliminar",
             };
             model.addRow(row);
         }
-        tableUsuarios.setRowHeight(40);
+        tableUsuarios.setRowHeight(120);
         // Asignar MouseListener al botón para manejar el clic
         tableUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             //@Override
@@ -203,10 +210,10 @@ public class GestionUsuarios extends javax.swing.JPanel {
                     int column = tableUsuarios.getColumnModel().getColumnIndexAtX(evt.getX());
                     int row = evt.getY() / tableUsuarios.getRowHeight();
 
-                    if (row < tableUsuarios.getRowCount() && column == 8) {
+                    if (row < tableUsuarios.getRowCount() && column == 9) {
                         String dni = tableUsuarios.getValueAt(row, 6).toString();
                         buttonRendererEdit.buttonEditAction(dni);
-                    } else if (row < tableUsuarios.getRowCount() && column == 9) {
+                    } else if (row < tableUsuarios.getRowCount() && column == 10) {
                         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas desactivar este usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
                         if (confirmacion == JOptionPane.YES_OPTION) {
                             String dni = tableUsuarios.getValueAt(row, 6).toString();
@@ -215,6 +222,27 @@ public class GestionUsuarios extends javax.swing.JPanel {
                     }    
             }
         });       
+    }
+    public ImageIcon cargarImagen(String rutaImagen, int ancho, int alto) {
+        try {
+            File imagenFile = new File(rutaImagen);
+            if (!imagenFile.exists()) {
+                // Manejar la situación si la imagen no existe
+                return null;
+            }
+
+            ImageIcon imagenIcon = new ImageIcon(ImageIO.read(imagenFile));
+
+            // Redimensionar la imagen si es necesario
+            Image imagen = imagenIcon.getImage();
+            imagen = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+
+            return new ImageIcon(imagen);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Manejar cualquier error que pueda ocurrir al cargar la imagen
+            return null;
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

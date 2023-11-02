@@ -6,6 +6,8 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 public class UsuariosDesactivados extends javax.swing.JPanel {
@@ -21,7 +23,9 @@ public class UsuariosDesactivados extends javax.swing.JPanel {
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
         ButtonRenderer buttonRendererActivar = new ButtonRenderer();
-        tableUsuarios.getColumnModel().getColumn(8).setCellRenderer(buttonRendererActivar);
+        Icon icono = new ImageIcon(getClass().getResource("/activar.png"));
+        tableUsuarios.getColumnModel().getColumn(8).setCellRenderer(new IconRenderer(icono)); 
+        //tableUsuarios.getColumnModel().getColumn(8).setCellRenderer(buttonRendererActivar);
         
         for (Usuario usuario : usuarios) {
             buttonRendererActivar.setAction("activar");

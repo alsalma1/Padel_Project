@@ -4,19 +4,19 @@ import com.mycompany.mavenproject1.models.Usuario;
 
 public class BienvenidoUsuario extends javax.swing.JPanel {
 
-    public BienvenidoUsuario() {
+    public BienvenidoUsuario(String email) {
         initComponents();
-        //setName();
+        setName(email);
     }
     
-    /*public void setName(String emailUsuario){
+    public void setName(String emailUsuario){
         Usuario user = new Usuario();
         user.setEmail(emailUsuario);
         String nombre = user.obtenerNombre();
         String mensaje = msgBienv.getText()+" "+nombre;
         msgBienv.setText(mensaje);
         
-    }*/
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

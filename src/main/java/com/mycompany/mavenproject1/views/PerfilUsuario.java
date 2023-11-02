@@ -14,8 +14,8 @@ public class PerfilUsuario extends javax.swing.JPanel {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        fotoUsuario = new javax.swing.JPanel();
+        fotoUser = new javax.swing.JLabel();
         labelNombre = new javax.swing.JLabel();
         labelEmail = new javax.swing.JLabel();
         labelDni = new javax.swing.JLabel();
@@ -32,26 +32,24 @@ public class PerfilUsuario extends javax.swing.JPanel {
         bg.setBackground(new java.awt.Color(255, 255, 255));
         bg.setPreferredSize(new java.awt.Dimension(930, 560));
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        fotoUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        fotoUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        jLabel1.setText("Aqui va la imagen del usuario");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout fotoUsuarioLayout = new javax.swing.GroupLayout(fotoUsuario);
+        fotoUsuario.setLayout(fotoUsuarioLayout);
+        fotoUsuarioLayout.setHorizontalGroup(
+            fotoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fotoUsuarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(fotoUser, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+        fotoUsuarioLayout.setVerticalGroup(
+            fotoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fotoUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(fotoUser, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         labelNombre.setBackground(new java.awt.Color(204, 102, 255));
@@ -79,40 +77,42 @@ public class PerfilUsuario extends javax.swing.JPanel {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fotoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(73, 73, 73)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(bgLayout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(labelDni, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(labelTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(labelFechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(labelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelDni, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(labelFechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(376, Short.MAX_VALUE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(208, 208, 208)
+                        .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(294, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                         .addComponent(labelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,8 +128,7 @@ public class PerfilUsuario extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labelDni, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fotoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)))
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
@@ -165,12 +164,12 @@ public class PerfilUsuario extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel fotoUser;
+    public javax.swing.JPanel fotoUsuario;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     public javax.swing.JLabel labelDni;
     public javax.swing.JLabel labelEmail;

@@ -20,14 +20,21 @@ import com.mycompany.mavenproject1.views.UsuariosDesactivados;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -40,11 +47,11 @@ public class AppController {
     public static GestionUsuarios gestionUsuarios = new GestionUsuarios();
     public static UsuariosDesactivados usuariosDesactivados = new UsuariosDesactivados();
     public static PerfilUsuario perfil;
-    public static ReservarPista reservarPista = new ReservarPista();
+    public static ReservarPista reservarPista;
     public static MisReservas misReservas = new MisReservas(); 
     public static DashboardAdmin dashA = new DashboardAdmin();
     public static String email;
-    public static DashboardUsuario dashU = new DashboardUsuario();
+    public static DashboardUsuario dashU;
     public static Usuario usuario = new Usuario();
     public static Admin admin = new Admin();
     
@@ -53,6 +60,7 @@ public class AppController {
     /* ------------------ Adminastrador --------------------- */
     
     public void verificarLogin(String email,String password){
+        dashU = new DashboardUsuario(email);
         if(admin.esAdmin(email,password)){
             dashA.setVisible(true);
         } else if(usuario.esUsuario(email, password)){
@@ -73,16 +81,15 @@ public class AppController {
         dashA.content.revalidate();
         dashA.content.repaint();
     }
-    public void showJPanelDashboardUsuario(JPanel p){
+    /*public void showJPanelDashboardUsuario(JPanel p){
         p.setSize(926, 540);
         p.setLocation(0,0);
-
         dashU.content.removeAll();
         dashU.content.setLayout(new BorderLayout()); // Asegúrate de establecer un BorderLayout si aún no lo has hecho
         dashU.content.add(p, BorderLayout.CENTER);
         dashU.content.revalidate();
         dashU.content.repaint();
-    }
+    }*/
     /* ------------------ Usuario --------------------- */
     public void comprobarCredencialesUsuario(String email, String contraseña){
         Usuario user = new Usuario();
@@ -243,7 +250,6 @@ public class AppController {
         }
         
         try {
-            // Intenta editar el usuario
             user.editarUsuario();
             JOptionPane.showMessageDialog(null, "Usuario modificado correctamente!");
             actualizarYMostrarUsuarios();
@@ -329,6 +335,13 @@ public class AppController {
             perfil.labelEmail.setText(usuario.getEmail());
             perfil.labelTelefono.setText(usuario.getTelefono());
             
+            //Mostrar la imagen del usuario
+            String nombreImagen = usuario.getFoto();
+            String rutaImagen = "/imagenes_usua/" + nombreImagen;
+            // Cargar la imagen desde el archivo en la ruta proporcionada
+            ImageIcon imagenIcon = new ImageIcon(getClass().getResource(rutaImagen));
+            perfil.fotoUser.setIcon(imagenIcon);
+            
             //Font
             Font fuentePersonalizada = new Font("Arial", Font.PLAIN, 14);
             perfil.labelEmail.setFont(fuentePersonalizada);
@@ -371,8 +384,8 @@ public class AppController {
     
         
     /* ------------------ Reservas --------------------- */
-    public void mostrarPistas(){
-        reservarPista = new ReservarPista();
+    public void mostrarPistas(String email){
+        reservarPista = new ReservarPista(email);
         dashU.showJPanel(reservarPista);
     }
     public static void llenarPrimeraColumnaConHoras(DefaultTableModel modelo) {
@@ -407,11 +420,15 @@ public class AppController {
     }
     
     public void hacerLaReserva(String hora, int pista, Date fecha, String email){
-        //Obtener hora actual
+        //Obtener fecha actual
+        LocalDate fechaActual = LocalDate.now();
+        DateTimeFormatter formatterFecha = DateTimeFormatter.ofPattern("YYYY-MM-dd");
+        // Formatea la fecha en el formato deseado
+        String fechaFormateada = fechaActual.format(formatterFecha);
+       //Obtener hora actual
         LocalTime horaActual = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String horaActualFormateada = horaActual.format(formatter);
-        
         Reserva reserva = new Reserva();
         reserva.setEmail_usuario(email);
         
@@ -420,10 +437,20 @@ public class AppController {
         reserva.setId_pista(pista);
         reserva.setHora(hora);
         LocalTime horaParaComparar = LocalTime.parse(hora, formatter);
+        
+        // Convierte la cadena "fechaFormateada" en un objeto Date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaFormateadaDate = null;
+        try {
+            fechaFormateadaDate = dateFormat.parse(fechaFormateada);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    
         if(reserva.comprobarReserva()){
             JOptionPane.showMessageDialog(null, "No puedes reservar diferentes pistas en la misma hora y fecha!");
         }
-        else if(horaParaComparar.isBefore(horaActual)){
+        else if(horaParaComparar.isBefore(horaActual) && fechaFormateadaDate.equals(fecha)){
             JOptionPane.showMessageDialog(null, "No puedes reservar en una hora que ya ha pasado!");
         }
         else{
@@ -438,7 +465,7 @@ public class AppController {
         try {
             Date date = dateFormat.parse(fecha);
             java.sql.Date fechaSQL = new java.sql.Date(date.getTime());
-            reserva.setEmail_usuario(email);
+            reserva.setEmail_usuario(reservarPista.userEmail);
             reserva.setFecha(fechaSQL);            
         } catch (Exception e) {
             e.printStackTrace();
@@ -464,5 +491,20 @@ public class AppController {
         reserva.eliminarReserva();
         //----------No olvidar poner un mensaje de confirmacion antes de borrar la reserva
         JOptionPane.showMessageDialog(null, "Tu reserva con numero "+idReserva+" se eliminó correctamente!");
+    }
+    
+    
+    public void guardarImagenEnCarpetaResources(String sourcePath, String destinationPath) {
+        File sourceFile = new File(sourcePath);
+        File destinationFile = new File(destinationPath);
+
+        // Copiar el archivo desde la fuente al destino
+        try {
+            Path source = sourceFile.toPath();
+            Path destination = destinationFile.toPath();
+            Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

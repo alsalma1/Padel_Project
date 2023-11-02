@@ -1,7 +1,6 @@
 package com.mycompany.mavenproject1.views;
 
 import com.mycompany.mavenproject1.controllers.AppController;
-import com.mycompany.mavenproject1.models.Reserva;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -34,6 +33,7 @@ public class ReservarPista extends javax.swing.JPanel {
     
     private List<Integer> pistasEnMantenimiento = new ArrayList<>();
     private Date fechaSeleccionada;
+    public String userEmail;
 
     public List<String> getHoras() {
         return horas;
@@ -55,8 +55,8 @@ public class ReservarPista extends javax.swing.JPanel {
         return pistasEnMantenimiento;
     }
     
-    public ReservarPista() {
-        //this.userEmail = email;
+    public ReservarPista(String email) {
+        this.userEmail = email;
         initComponents();
         // Cambiar el tamaño de la columna 0
         TableColumn column = tablePistas.getColumnModel().getColumn(0);
@@ -133,7 +133,6 @@ public class ReservarPista extends javax.swing.JPanel {
             btnActualizar.setVisible(true);
             try {
                 fechaSeleccionada = sdf.parse(fechaFormateada);
-                System.out.println("fecha :" +fechaSeleccionada);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -254,9 +253,10 @@ public class ReservarPista extends javax.swing.JPanel {
                         tablePistas.setCursor(new Cursor(Cursor.HAND_CURSOR));
                         String hora = (String) model.getValueAt(row, 0);
                         int pista = col;
-                        appController.hacerLaReserva(hora, pista, fechaSeleccionada, appController.email);
+                        String emailUsuarioLogeado = userEmail;
+                        appController.hacerLaReserva(hora, pista, fechaSeleccionada, emailUsuarioLogeado);
                     } else {
-                        appController.avisarUsuario(appController.email);
+                        appController.avisarUsuario(userEmail);
                         tablePistas.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // Restablecer el cursor
                     }
                 }else {
@@ -303,7 +303,7 @@ public class ReservarPista extends javax.swing.JPanel {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         fechaPista.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -481,7 +481,7 @@ public class ReservarPista extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 986, Short.MAX_VALUE)
+                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

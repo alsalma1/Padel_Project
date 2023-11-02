@@ -67,10 +67,12 @@ com\mycompany\mavenproject1\views\EditarUsuario$10.class
 com\mycompany\mavenproject1\views\AñadirUsuario$8.class
 com\mycompany\mavenproject1\views\BienvenidoUsuario.class
 com\mycompany\mavenproject1\DashboardUsuario$1.class
+com\mycompany\mavenproject1\DashboardAdmin$5.class
 com\mycompany\mavenproject1\views\EditarUsuario$8.class
 com\mycompany\mavenproject1\views\GestionUsuarios$3.class
 com\mycompany\mavenproject1\Dashboard$1.class
 com\mycompany\mavenproject1\views\GestionPistas$1.class
+com\mycompany\mavenproject1\DashboardUsuario$5.class
 com\mycompany\mavenproject1\views\GestionReservasAdmin.class
 com\mycompany\mavenproject1\views\GestionPistas$2.class
 CustomCellRenderer.class
@@ -80,6 +82,7 @@ com\mycompany\mavenproject1\views\GestionUsuarios$4.class
 com\mycompany\mavenproject1\views\AñadirUsuario$9.class
 com\mycompany\mavenproject1\views\ReservarPista$1.class
 com\mycompany\mavenproject1\views\EditarUsuario$9.class
+com\mycompany\mavenproject1\views\ImageRenderer.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados$2.class
 com\mycompany\mavenproject1\views\LoginAdmin$3.class
 com\mycompany\mavenproject1\DashboardAdmin$4.class

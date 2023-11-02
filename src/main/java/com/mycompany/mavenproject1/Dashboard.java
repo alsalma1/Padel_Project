@@ -213,8 +213,8 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         AppController appController = new AppController();
-        appController.verificarLogin(emailTxtField.getText(),new String(passwordField.getPassword())); 
-        System.out.println(passwordField.getPassword());
+        appController.verificarLogin(emailTxtField.getText(),new String(passwordField.getPassword()));
+        setVisible(false);
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void emailTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTxtFieldActionPerformed

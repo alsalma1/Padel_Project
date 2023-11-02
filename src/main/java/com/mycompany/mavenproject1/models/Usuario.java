@@ -128,7 +128,7 @@ public class Usuario {
                 usuario.setTelefono(resultSet.getString("telefono"));
                 usuario.setDni(resultSet.getString("dni"));
                 usuario.setSocio(resultSet.getBoolean("socio"));
-
+                usuario.setFoto(resultSet.getString("foto"));
                 usuarios.add(usuario);
             }
 
@@ -332,19 +332,18 @@ public class Usuario {
             connection = conn.establecerConexion();
 
             // Consulta SQL para obtener usuarios
-            String sql = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, foto = ?, fecha_nacimiento = ?, telefono = ?, socio = ?, contraseña=? WHERE dni = ?";
+            String sql = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, fecha_nacimiento = ?, telefono = ?, socio = ?, contraseña=? WHERE dni = ?";
             preparedStatement = connection.prepareStatement(sql);
 
             // Establecer los valores para los parámetros
             preparedStatement.setString(1, getNombre());
             preparedStatement.setString(2, getApellido());
             preparedStatement.setString(3, getEmail());
-            preparedStatement.setString(4, "De momento no hay");
-            preparedStatement.setDate(5,  getFecha_nacimiento());
-            preparedStatement.setString(6, getTelefono());
-            preparedStatement.setBoolean(7, getSocio());
-            preparedStatement.setString(8, getContrasena());
-            preparedStatement.setString(9, getDni());
+            preparedStatement.setDate(4,  getFecha_nacimiento());
+            preparedStatement.setString(5, getTelefono());
+            preparedStatement.setBoolean(6, getSocio());
+            preparedStatement.setString(7, getContrasena());
+            preparedStatement.setString(8, getDni());
             
             // Ejecutar la consulta de inserción
             preparedStatement.executeUpdate();
@@ -566,7 +565,6 @@ public class Usuario {
             String sql = "SELECT * FROM usuarios WHERE email = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, getEmail());
-
             // Ejecutar la consulta
             resultSet = preparedStatement.executeQuery();
 
@@ -580,7 +578,7 @@ public class Usuario {
                 this.setTelefono(resultSet.getString("telefono"));
                 this.setDni(resultSet.getString("dni"));
                 this.setSocio(resultSet.getBoolean("socio"));
-
+                this.setFoto(resultSet.getString("foto"));
                 infoUser.add(this);
             }
 
@@ -598,5 +596,40 @@ public class Usuario {
         }
         return infoUser;
     }
+    
+    public void guardarImagen() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
+        try {            
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Consulta SQL para obtener usuarios
+            String sql = "UPDATE usuarios SET foto = ? WHERE dni = ?";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Establecer los valores para los parámetros
+            preparedStatement.setString(1, getFoto());
+            preparedStatement.setString(2, getDni());
+
+            // Ejecutar la consulta de inserción
+            preparedStatement.executeUpdate();
+            //JOptionPane.showMessageDialog(null,"Usuario insertado correctamente!");
+            
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de errores: imprime el error en la consola
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace(); // Manejo de errores: imprime el error en la consola
+            }
+        }
+    }
 }
