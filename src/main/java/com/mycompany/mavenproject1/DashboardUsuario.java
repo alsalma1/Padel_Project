@@ -2,8 +2,10 @@ package com.mycompany.mavenproject1;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import com.mycompany.mavenproject1.controllers.AppController;
 import com.mycompany.mavenproject1.views.BienvenidoUsuario;
 import com.mycompany.mavenproject1.views.MisReservas;
+import com.mycompany.mavenproject1.views.PaginaPrincipalUsuario;
 import com.mycompany.mavenproject1.views.PerfilUsuario;
 import com.mycompany.mavenproject1.views.ReservarPista;
 import java.awt.BorderLayout;
@@ -19,8 +21,12 @@ import javax.swing.UIManager;
  * @author Alex
  */
 public class DashboardUsuario extends javax.swing.JFrame {
-
-    public DashboardUsuario() {
+    private String emailLogeado;
+    private AppController appController = new AppController();
+    
+    public DashboardUsuario(String email) {
+        this.emailLogeado = email;
+        setTitle("Panel usuario");
         initComponents();
         initStyles();
         initContent();
@@ -30,7 +36,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
         msg.putClientProperty( "FlatLaf.styleClass", "h1" );
     }
     private void initContent(){
-        showJPanel(new BienvenidoUsuario());
+        showJPanel(new BienvenidoUsuario(emailLogeado));
     }
     public void showJPanel(JPanel p){
         p.setSize(930, 560);
@@ -48,6 +54,10 @@ public class DashboardUsuario extends javax.swing.JFrame {
         date.setText(now.format(DateTimeFormatter.ofPattern("'Hoy es' EEEE dd 'de' MMMM 'de' yyyy", spanishLocale)));
     }
 
+    public void obtenerEmail(){
+        String texto = msg.getText();
+        //msg.setText(texto+" "+getEmailLogeado());
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -264,19 +274,21 @@ public class DashboardUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void perfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosBtnActionPerformed
-        showJPanel(new PerfilUsuario());
+        appController.mostrarPerfilUsuario(emailLogeado);
     }//GEN-LAST:event_usuariosBtnActionPerformed
 
     private void reservasPistasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pistasBtnActionPerformed
-        showJPanel(new ReservarPista());
+        appController.mostrarPistas(emailLogeado);
+        //showJPanel(new ReservarPista());
     }//GEN-LAST:event_pistasBtnActionPerformed
 
     private void PrincipalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrincipalBtnActionPerformed
-        showJPanel(new BienvenidoUsuario());
+        showJPanel(new BienvenidoUsuario(emailLogeado));
     }//GEN-LAST:event_PrincipalBtnActionPerformed
 
     private void misReservasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservasBtnActionPerformed
-        showJPanel(new MisReservas());
+        appController.mostrarMisReservas(emailLogeado);
+        //showJPanel(new MisReservas());
     }//GEN-LAST:event_reservasBtnActionPerformed
 
     /**

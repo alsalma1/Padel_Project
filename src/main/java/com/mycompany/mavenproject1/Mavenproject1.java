@@ -11,7 +11,10 @@ public class Mavenproject1 {
         //Para conectar Java con la bse de datos
         Conexion objetoConexion = new Conexion();
         objetoConexion.establecerConexion();
-        DashboardUsuario principal = new DashboardUsuario();
-        principal.setVisible(true);
+        //DashboardUsuario principal = new DashboardUsuario();
+        //principal.setVisible(true);
+        
+        Dashboard dash = new Dashboard();
+        dash.setVisible(true);
     }
 }

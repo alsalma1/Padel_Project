@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.mavenproject1;
-
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mycompany.mavenproject1.views.LoginAdmin;
@@ -25,6 +20,7 @@ import javax.swing.UIManager;
 public class Dashboard extends javax.swing.JFrame {
 
     public Dashboard() {
+        setTitle("Login");
         initComponents();
         initStyles();
         initContent();

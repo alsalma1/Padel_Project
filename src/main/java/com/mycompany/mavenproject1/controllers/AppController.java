@@ -1,5 +1,6 @@
 package com.mycompany.mavenproject1.controllers;
 
+import com.mycompany.mavenproject1.Dashboard;
 import com.mycompany.mavenproject1.DashboardAdmin;
 import com.mycompany.mavenproject1.DashboardUsuario;
 import com.mycompany.mavenproject1.models.Admin;
@@ -20,8 +21,11 @@ import com.mycompany.mavenproject1.views.ReservarPista;
 import com.mycompany.mavenproject1.views.UsuariosDesactivados;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +43,12 @@ public class AppController {
     public static GestionUsuarios gestionUsuarios;
     public static UsuariosDesactivados usuariosDesactivados = new UsuariosDesactivados();
     public static PaginaPrincipalUsuario paginaPrincipalUsuario = new PaginaPrincipalUsuario();
-    public static PerfilUsuario perfilUsuario = new PerfilUsuario();
-    public static ReservarPista reservarPista = new ReservarPista();
-    public static MisReservas misReservas = new MisReservas();
+    public static PerfilUsuario perfil;
+    public static ReservarPista reservarPista;
+    public static MisReservas misReservas;
     public static DashboardAdmin dashA = new DashboardAdmin();
-    public static DashboardUsuario dashU = new DashboardUsuario();
+    public static DashboardUsuario dashU;
+    public static Dashboard dash = new Dashboard();
     private static final GestionPistas viewGestion = new GestionPistas();
     private static final PaginaPrincipalAdmin viewAdminPanel = new PaginaPrincipalAdmin();
     
@@ -74,17 +79,11 @@ public class AppController {
     /* ------------------ Usuario --------------------- */
     public void comprobarCredencialesUsuario(String email, String contraseña, LoginUsuario loginUsu){
         Usuario user = new Usuario();
-
         user.setEmail(email);
         user.setContrasena(contraseña);
-        String nombre = user.obtenerNombre();
         if(user.comprobarDatosUsuario()){
-            //String texto = paginaPrincipalUsuario.labelUsu.getText()+" "+nombre;
-            // Las credenciales son válidas, abre la página principal del usuario
-            //paginaPrincipalUsuario.setUserEmail(email);
-            //paginaPrincipalUsuario.labelUsu.setText(texto);
-            //paginaPrincipalUsuario.setVisible(true);
-            loginUsu.setVisible(false);
+            dash.setVisible(false);
+            dashU = new DashboardUsuario(email);
             dashU.setVisible(true);
         }
         else{
@@ -302,7 +301,7 @@ public class AppController {
             actualizarYMostrarUsuarios();
         }
         else if(object instanceof PerfilUsuario){
-            perfilUsuario.setVisible(false);
+            //perfilUsuario.setVisible(false);
             paginaPrincipalUsuario.setVisible(true);
         }
         else if(object instanceof ReservarPista){
@@ -311,7 +310,6 @@ public class AppController {
         }
         else if(object instanceof MisReservas){
             misReservas.setVisible(false);
-            JOptionPane.showMessageDialog(null, "TTT: "+perfilUsuario.getUserEmail());
             //mostrarPerfilUsuario(paginaPrincipalUsuario, misReservas.getUserEmail());
         }
     }
@@ -352,15 +350,12 @@ public class AppController {
         actualizarYMostrarUsuarios();
     }
 
-    public void mostrarPerfilUsuario(PaginaPrincipalUsuario paginaPrincipalUsuario, String email){
-        paginaPrincipalUsuario.setVisible(false);
-        
+    public void mostrarPerfilUsuario(String email){        
         Usuario user = new Usuario();
-        PerfilUsuario perfil = new PerfilUsuario();
+        perfil = new PerfilUsuario(email);
         user.setEmail(email);
 
         List<Usuario> infoUser = user.datosUsuarioLogeado();
-
         for (Usuario usuario : infoUser) {
             perfil.labelNombre.setText(usuario.getNombre()+" "+usuario.getApellido());
             perfil.labelDni.setText(usuario.getDni());
@@ -368,12 +363,17 @@ public class AppController {
             // Convertir la fecha al formato dd-MM-yyyy
             String fechaFormateada = convertirFormatoFecha(usuario.getFecha_nacimiento());
             perfil.labelFechaN.setText(fechaFormateada);
-            perfil.labelPassw.setText(perfil.labelPassw.getText()+ " "+usuario.getContrasena());
             perfil.labelEmail.setText(usuario.getEmail());
             perfil.labelTelefono.setText(usuario.getTelefono());
+            
+            //Font
+            Font fuentePersonalizada = new Font("Arial", Font.PLAIN, 14);
+            perfil.labelEmail.setFont(fuentePersonalizada);
+            perfil.labelDni.setFont(fuentePersonalizada);
+            perfil.labelTelefono.setFont(fuentePersonalizada);
+            perfil.labelFechaN.setFont(fuentePersonalizada);
         }
-        perfil.setUserEmail(email);
-        perfil.setVisible(true);
+        dashU.showJPanel(perfil);
     }
     
     public String convertirFormatoFecha(Date fecha) {
@@ -389,15 +389,15 @@ public class AppController {
         }
     }
     
-    public void mostrarMisReservas(PerfilUsuario perfilUsuario, String email){
-        perfilUsuario.setVisible(false);
-        MisReservas misReservas = new MisReservas();
+    public void mostrarMisReservas(String email){
+        misReservas = new MisReservas();
         Reserva reserva = new Reserva();
         reserva.setEmail_usuario(email);
         misReservas.setUserEmail(email);
         List<Reserva> mevasReservas = reserva.reservasUsuarioLogeado();
         misReservas.cargarReservasEnTabla(mevasReservas);
         misReservas.setVisible(true);
+        dashU.showJPanel(misReservas);
     }
 
     public void avisarUsuario(String emailUsuarioLogeado) {
@@ -415,9 +415,8 @@ public class AppController {
         
     /* ------------------ Reservas --------------------- */
     public void mostrarPistas(String email){
-        paginaPrincipalUsuario.setVisible(false);
-        reservarPista.setVisible(true);
-        reservarPista.setUserEmail(email);
+        reservarPista = new ReservarPista(email);
+        dashU.showJPanel(reservarPista);
     }
     public static void mostrarReservasPistasAdmin(){
         paginaPrincipalAdmin.setVisible(false);
@@ -459,6 +458,11 @@ public class AppController {
     }
     
     public void hacerLaReserva(String hora, int pista, Date fecha, String email){
+        //Obtener hora actual
+        LocalTime horaActual = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String horaActualFormateada = horaActual.format(formatter);
+        
         Reserva reserva = new Reserva();
         reserva.setEmail_usuario(email);
         
@@ -466,7 +470,16 @@ public class AppController {
         reserva.setFecha(fechaSeleccionada);
         reserva.setId_pista(pista);
         reserva.setHora(hora);
-        reserva.reservar();
+        LocalTime horaParaComparar = LocalTime.parse(hora, formatter);
+        if(reserva.comprobarReserva()){
+            JOptionPane.showMessageDialog(null, "No puedes reservar diferentes pistas en la misma hora y fecha!");
+        }
+        else if(horaParaComparar.isBefore(horaActual)){
+            JOptionPane.showMessageDialog(null, "No puedes reservar en una hora que ya ha pasado!");
+        }
+        else{
+            reserva.reservar();
+        }
     }
      
     public void userReservas(String fecha){
@@ -476,7 +489,7 @@ public class AppController {
         try {
             Date date = dateFormat.parse(fecha);
             java.sql.Date fechaSQL = new java.sql.Date(date.getTime());
-            reserva.setEmail_usuario(reservarPista.getUserEmail());
+            reserva.setEmail_usuario(reservarPista.userEmail);
             reserva.setFecha(fechaSQL);            
         } catch (Exception e) {
             e.printStackTrace();
@@ -501,6 +514,6 @@ public class AppController {
         reserva.setId_reserva(idReserva);
         reserva.eliminarReserva();
         //----------No olvidar poner un mensaje de confirmacion antes de borrar la reserva
-        JOptionPane.showMessageDialog(null, "Tu reserva con numero "+idReserva+"se eliminó correctamente!");
+        JOptionPane.showMessageDialog(null, "Tu reserva con numero "+idReserva+" se eliminó correctamente!");
     }
 }
