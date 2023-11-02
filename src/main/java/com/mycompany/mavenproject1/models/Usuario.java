@@ -1,4 +1,4 @@
-    package com.mycompany.mavenproject1.models;
+package com.mycompany.mavenproject1.models;
 
 import com.mycompany.mavenproject1.config.Conexion;
 import java.sql.Connection;

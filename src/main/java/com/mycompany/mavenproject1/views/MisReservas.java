@@ -2,10 +2,17 @@ package com.mycompany.mavenproject1.views;
 
 import com.mycompany.mavenproject1.controllers.AppController;
 import com.mycompany.mavenproject1.models.Reserva;
+import java.awt.Cursor;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class MisReservas extends javax.swing.JPanel {
     private String userEmail;
@@ -19,15 +26,27 @@ public class MisReservas extends javax.swing.JPanel {
     }
     public MisReservas() {
         initComponents();
+        // Configurar el alineamiento de las celdas en el centro
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tableMisReservas.setDefaultRenderer(String.class, centerRenderer);
     }
 
     public void cargarReservasEnTabla(List<Reserva> lista) {
+        // Establecer el ancho de la segunda columna (índice 1) a 100 píxeles
+        TableColumn column = tableMisReservas.getColumnModel().getColumn(4);
+        column.setPreferredWidth(20);
+        
         DefaultTableModel model = (DefaultTableModel) tableMisReservas.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
         SimpleDateFormat formatoFechaNuevo = new SimpleDateFormat("dd-MM-yyyy");
         ButtonRenderer buttonRendererDelete = new ButtonRenderer();
-        tableMisReservas.getColumnModel().getColumn(4).setCellRenderer(buttonRendererDelete);
+        ButtonRenderer buttonRendererIcono = new ButtonRenderer();
+        
+        Icon icono = new ImageIcon(getClass().getResource("/eliminar.png"));
+        tableMisReservas.getColumnModel().getColumn(4).setCellRenderer(new IconRenderer(icono));
+        //tableMisReservas.getColumnModel().getColumn(4).setCellRenderer(buttonRendererDelete);
         
         for (Reserva re : lista) {
             String fechaFormateada = formatoFechaNuevo.format(re.getFecha());
@@ -41,16 +60,30 @@ public class MisReservas extends javax.swing.JPanel {
             };
             model.addRow(row);
         }
-        tableMisReservas.setRowHeight(40);
+        tableMisReservas.setRowHeight(50);
+        tableMisReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                int column = tableMisReservas.getColumnModel().getColumnIndexAtX(evt.getX());
+                if(column == 4){
+                    setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                setCursor(Cursor.getDefaultCursor());
+            }
+        });
         tableMisReservas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int column = tableMisReservas.getColumnModel().getColumnIndexAtX(evt.getX());
-                int row = evt.getY() / tableMisReservas.getRowHeight();
-                if (row < tableMisReservas.getRowCount() && column == 4) {
-                    Object idReservaObj = tableMisReservas.getValueAt(row, 0); // Obtén el valor de la columna "Numero reserva"
-                    if (idReservaObj != null) {
-                        int idReserva = Integer.parseInt(idReservaObj.toString()); // Convierte el valor a un entero si es necesario
-                        buttonRendererDelete.buttonDeleteAction(idReserva, MisReservas.this);
+                int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar esta reserva?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    int column = tableMisReservas.getColumnModel().getColumnIndexAtX(evt.getX());
+                    int row = evt.getY() / tableMisReservas.getRowHeight();
+                    if (row < tableMisReservas.getRowCount() && column == 4) {
+                        Object idReservaObj = tableMisReservas.getValueAt(row, 0); // Obtén el valor de la columna "Numero reserva"
+                        if (idReservaObj != null) {
+                            int idReserva = Integer.parseInt(idReservaObj.toString()); // Convierte el valor a un entero si es necesario
+                            buttonRendererDelete.buttonDeleteAction(idReserva, MisReservas.this);
+                        }
                     }
                 }
             }
@@ -78,7 +111,7 @@ public class MisReservas extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Numero reserva", "Fecha", "Hora", "Numero pista", ""
+                "Numero reserva", "Fecha", "Hora", "Numero pista", "Eliminar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -99,28 +132,29 @@ public class MisReservas extends javax.swing.JPanel {
         }
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Mis reservas");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(bgLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(14, 14, 14))
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -128,14 +162,14 @@ public class MisReservas extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 984, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 449, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

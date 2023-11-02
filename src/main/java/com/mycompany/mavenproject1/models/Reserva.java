@@ -175,7 +175,7 @@ public class Reserva {
             connection = conn.establecerConexion();
 
             // Consulta SQL para obtener usuarios
-            String sql = "INSERT INTO reservas (email_usuario, id_pista, fecha, hora) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO reservas (email_usuario, id_pista, fecha, hora, activa) VALUES (?, ?, ?, ?, 1)";
             preparedStatement = connection.prepareStatement(sql);
 
             // Establecer los valores para los parámetros
@@ -257,7 +257,7 @@ public class Reserva {
             Conexion conn = new Conexion();
             connection = conn.establecerConexion();
 
-            String sqlCount = "SELECT * FROM reservas WHERE email_usuario = ?";
+            String sqlCount = "SELECT * FROM reservas WHERE email_usuario = ? AND activa = 1";
             preparedStatement = connection.prepareStatement(sqlCount);
             preparedStatement.setString(1, getEmail_usuario());
             resultSet = preparedStatement.executeQuery();
@@ -304,7 +304,7 @@ public class Reserva {
             connection = conn.establecerConexion();
 
             // Crear la consulta SQL con un PreparedStatement y parámetros
-            String sql = "DELETE FROM reservas WHERE id_reserva = ?";
+            String sql = "UPDATE reservas SET activa = 0 WHERE id_reserva = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, getId_reserva());
 
@@ -316,6 +316,52 @@ public class Reserva {
         } finally {
             // Cerrar recursos
             try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    //Este metodo tiene que comprobar si existe una reserva del mismo usuario en la misma fecha y hora pero diferentes pistas
+    public boolean comprobarReserva(){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {            
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Consulta SQL para obtener usuarios
+            String sql = "SELECT COUNT(*) AS count FROM reservas WHERE email_usuario = ? AND fecha = ? AND hora = ? AND id_pista != ?";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Establecer los valores para los parámetros
+            preparedStatement.setString(1, getEmail_usuario());
+            preparedStatement.setDate(2, getFecha());
+            preparedStatement.setString(3, getHora());
+            preparedStatement.setInt(4, getId_pista());
+            
+            // Ejecutar la consulta de inserción
+            resultSet = preparedStatement.executeQuery();
+            
+            // Verificar si hay al menos un registro
+            if (resultSet != null && resultSet.next()) {
+                int count = resultSet.getInt("count");
+                return count > 0;
+            }
+            return true;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
                 if (preparedStatement != null) preparedStatement.close();
                 if (connection != null) connection.close();
             } catch (SQLException e) {

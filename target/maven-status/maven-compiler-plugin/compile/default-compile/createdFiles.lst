@@ -8,7 +8,6 @@ com\mycompany\mavenproject1\views\UsuariosDesactivados.class
 com\mycompany\mavenproject1\views\AñadirUsuario$4.class
 com\mycompany\mavenproject1\models\Pista.class
 com\mycompany\mavenproject1\Mavenproject1.class
-com\mycompany\mavenproject1\views\PerfilUsuario$1.class
 com\mycompany\mavenproject1\views\AñadirUsuario.class
 com\mycompany\mavenproject1\views\EditarUsuario$11.class
 com\mycompany\mavenproject1\views\GestionUsuarios$1.class
@@ -79,7 +78,6 @@ com\mycompany\mavenproject1\views\GestionPistas$2.class
 CustomCellRenderer.class
 com\mycompany\mavenproject1\views\UsuariosDesactivados$1.class
 com\mycompany\mavenproject1\views\GestionPistas.class
-com\mycompany\mavenproject1\views\GestionUsuarios$4.class
 com\mycompany\mavenproject1\views\AñadirUsuario$9.class
 com\mycompany\mavenproject1\views\ReservarPista$1.class
 com\mycompany\mavenproject1\views\EditarUsuario$9.class

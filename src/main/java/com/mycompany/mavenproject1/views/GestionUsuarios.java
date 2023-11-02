@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -154,7 +155,19 @@ public class GestionUsuarios extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(labelUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDesactivados, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(62, 62, 62)
+                        .addComponent(panelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -206,23 +219,24 @@ public class GestionUsuarios extends javax.swing.JPanel {
         tableUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             //@Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int column = tableUsuarios.getColumnModel().getColumnIndexAtX(evt.getX());
-                int row = evt.getY() / tableUsuarios.getRowHeight();
+                int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas desactivar este usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    int column = tableUsuarios.getColumnModel().getColumnIndexAtX(evt.getX());
+                    int row = evt.getY() / tableUsuarios.getRowHeight();
 
-                if (row < tableUsuarios.getRowCount() && column == 8) {
-                    String dni = tableUsuarios.getValueAt(row, 6).toString();
-                    buttonRendererEdit.buttonEditAction(dni);
-                } else if (row < tableUsuarios.getRowCount() && column == 9) {
-                    String dni = tableUsuarios.getValueAt(row, 6).toString();
-                    buttonRendererDelete.buttonDeleteAction(dni, GestionUsuarios.this);
-                }
+                    if (row < tableUsuarios.getRowCount() && column == 8) {
+                        String dni = tableUsuarios.getValueAt(row, 6).toString();
+                        buttonRendererEdit.buttonEditAction(dni);
+                    } else if (row < tableUsuarios.getRowCount() && column == 9) {
+                        String dni = tableUsuarios.getValueAt(row, 6).toString();
+                        buttonRendererDelete.buttonDeleteAction(dni, GestionUsuarios.this);
+                    }
+                }    
             }
         });       
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn;
-    private javax.swing.JPanel bg;
     private javax.swing.JButton btnDesactivados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
