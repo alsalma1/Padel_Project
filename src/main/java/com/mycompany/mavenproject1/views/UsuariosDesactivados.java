@@ -165,7 +165,7 @@ public class UsuariosDesactivados extends javax.swing.JPanel {
 
     private void volverBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverBtnActionPerformed
         AppController controller = new AppController();
-        controller.showJPanelController(new GestionUsuarios());
+        controller.showJPanelDashboardAdmin(new GestionUsuarios());
     }//GEN-LAST:event_volverBtnActionPerformed
 
 

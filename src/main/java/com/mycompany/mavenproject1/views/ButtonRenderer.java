@@ -9,7 +9,7 @@ class ButtonRenderer extends DefaultTableCellRenderer {
     private JButton buttonEdit;
     private JButton buttonDelete;
     private JButton buttonActivar;
-
+    private AppController appController = new AppController();
     private boolean editActionExecuted = false;
     private boolean deleteActionExecuted = false;
     private boolean activarActionExecuted = false;
@@ -42,7 +42,6 @@ class ButtonRenderer extends DefaultTableCellRenderer {
 
     public void buttonDeleteAction(String dni, Object objeto) {
         if (!deleteActionExecuted) {
-            AppController appController = new AppController();
             if(objeto instanceof GestionUsuarios){
                 GestionUsuarios gestionUsuarios = new GestionUsuarios();
                 appController.desactivarUsuario(dni, gestionUsuarios);
@@ -52,7 +51,6 @@ class ButtonRenderer extends DefaultTableCellRenderer {
     }
     public void buttonDeleteAction(int idReserva, Object objeto){
         if (!deleteActionExecuted) {
-            AppController appController = new AppController();
             if(objeto instanceof MisReservas){
                 MisReservas misReservas = new MisReservas();
                 appController.eliminarReserva(idReserva, misReservas);
@@ -63,7 +61,6 @@ class ButtonRenderer extends DefaultTableCellRenderer {
     
     public void buttonActivarAction(String dni, UsuariosDesactivados usuariosDesactivados){
         if (!activarActionExecuted) {
-            AppController appController = new AppController();
             appController.activarUsuario(dni, usuariosDesactivados);
             activarActionExecuted = true;
         }

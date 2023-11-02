@@ -13,7 +13,6 @@ import com.mycompany.mavenproject1.views.GestionUsuarios;
 import com.mycompany.mavenproject1.views.LoginAdmin;
 import com.mycompany.mavenproject1.views.LoginUsuario;
 import com.mycompany.mavenproject1.views.MisReservas;
-import com.mycompany.mavenproject1.views.PaginaPrincipalAdmin;
 import com.mycompany.mavenproject1.views.PaginaPrincipalUsuario;
 import com.mycompany.mavenproject1.views.PerfilUsuario;
 import com.mycompany.mavenproject1.views.ReservarPista;
@@ -33,10 +32,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class AppController {
     
-    public static PaginaPrincipalAdmin paginaPrincipalAdmin = new PaginaPrincipalAdmin();
     public static EditarUsuario editUser = new EditarUsuario();
     public static AñadirUsuario añadirUsuario = new AñadirUsuario();
-    public static GestionUsuarios gestionUsuarios;
+    public static GestionUsuarios gestionUsuarios = new GestionUsuarios();
     public static UsuariosDesactivados usuariosDesactivados = new UsuariosDesactivados();
     public static PaginaPrincipalUsuario paginaPrincipalUsuario = new PaginaPrincipalUsuario();
     public static PerfilUsuario perfilUsuario = new PerfilUsuario();
@@ -44,8 +42,7 @@ public class AppController {
     public static MisReservas misReservas = new MisReservas();
     public static DashboardAdmin dashA = new DashboardAdmin();
     public static DashboardUsuario dashU = new DashboardUsuario();
-    private static final GestionPistas viewGestion = new GestionPistas();
-    private static final PaginaPrincipalAdmin viewAdminPanel = new PaginaPrincipalAdmin();
+    public static Usuario usuario = new Usuario();
     
     private static final GestionReservasAdmin viewReservasAdmin = new GestionReservasAdmin();
 
@@ -61,15 +58,26 @@ public class AppController {
             JOptionPane.showMessageDialog(null, "Datos incorerctos, intenta otra vez!");
         }
     }
-    public void showJPanelController(JPanel p){
+    /* ----------------------------Manejo de paneles en la app------------------*/
+    public void showJPanelDashboardAdmin(JPanel p){
         p.setSize(926, 540);
         p.setLocation(0,0);
         
-        p.removeAll();
-        p.setLayout(new BorderLayout()); // Asegúrate de establecer un BorderLayout si aún no lo has hecho
-        p.add(p, BorderLayout.CENTER);
-        p.revalidate();
-        p.repaint();
+        dashA.content.removeAll();
+        dashA.content.setLayout(new BorderLayout()); // Asegúrate de establecer un BorderLayout si aún no lo has hecho
+        dashA.content.add(p, BorderLayout.CENTER);
+        dashA.content.revalidate();
+        dashA.content.repaint();
+    }
+    public void showJPanelDashboardUsuario(JPanel p){
+        p.setSize(926, 540);
+        p.setLocation(0,0);
+
+        dashU.content.removeAll();
+        dashU.content.setLayout(new BorderLayout()); // Asegúrate de establecer un BorderLayout si aún no lo has hecho
+        dashU.content.add(p, BorderLayout.CENTER);
+        dashU.content.revalidate();
+        dashU.content.repaint();
     }
     /* ------------------ Usuario --------------------- */
     public void comprobarCredencialesUsuario(String email, String contraseña, LoginUsuario loginUsu){
@@ -84,7 +92,6 @@ public class AppController {
             //paginaPrincipalUsuario.setUserEmail(email);
             //paginaPrincipalUsuario.labelUsu.setText(texto);
             //paginaPrincipalUsuario.setVisible(true);
-            loginUsu.setVisible(false);
             dashU.setVisible(true);
         }
         else{
@@ -92,7 +99,7 @@ public class AppController {
         }
     }
     
-    public void mostrarUsuarios(PaginaPrincipalAdmin paginaPrincipalAdmin){
+    public void mostrarUsuarios(){
         Usuario usuario = new Usuario();
 
         // Llamar al método obtenerUsuarios
@@ -116,8 +123,7 @@ public class AppController {
             gestionUsuarios.cargarUsuariosEnTabla();
         }
         // Mostrar la ventana de GestionUsuarios
-        gestionUsuarios.setVisible(true);
-        paginaPrincipalAdmin.setVisible(false);
+        dashA.showJPanel(new GestionUsuarios());
     }
     public void datosUsurios(){
         Usuario usuario = new Usuario();
@@ -170,9 +176,9 @@ public class AppController {
         }
         else{
             usuario.insertarUsuario();
-            añadirUsuario.setVisible(false);
-            // Actualiza y muestra la ventana de gestión de usuarios
             actualizarYMostrarUsuarios();
+            showJPanelDashboardAdmin(new GestionUsuarios());
+            // Actualiza y muestra la ventana de gestión de usuarios
         }
     }
     
@@ -224,11 +230,10 @@ public class AppController {
             }
         }
         editUser.setContraseña(contraseña);
-        gestionUsuarios.setVisible(false);
-        editUser.setVisible(true);
+        showJPanelDashboardAdmin(new EditarUsuario());
     }
     
-    public void editarUsuario(String nombre, String apellido, String dni, String email, String telef, String socio, Date fecha, String contraseña, EditarUsuario editarUsuario){
+    public void editarUsuario(String nombre, String apellido, String dni, String email, String telef, String socio, Date fecha, String contraseña){
         Usuario user = new Usuario();
         user.setNombre(nombre);
         user.setApellido(apellido);
@@ -250,9 +255,9 @@ public class AppController {
             // Intenta editar el usuario
             user.editarUsuario();
             JOptionPane.showMessageDialog(null, "Usuario modificado correctamente!");
-            editarUsuario.setVisible(false);
-            // Actualiza y muestra la ventana de gestión de usuarios
             actualizarYMostrarUsuarios();
+            showJPanelDashboardAdmin(new GestionUsuarios());
+            // Actualiza y muestra la ventana de gestión de usuarios
         } catch (Exception e) {
             // Si hay un error, muestra un mensaje de error
             JOptionPane.showMessageDialog(null, "Error al editar el usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -260,7 +265,6 @@ public class AppController {
     }
     
     public void actualizarYMostrarUsuarios(){
-        Usuario usuario = new Usuario();
 
         // Llamar al método obtenerUsuarios para obtener los datos actualizados
         List<Usuario> usuarios = usuario.obtenerUsuarios();
@@ -270,11 +274,10 @@ public class AppController {
             dashA.showJPanel(new GestionUsuarios());
         }
 
-        gestionUsuarios = new GestionUsuarios();  // Crear una nueva instancia
         gestionUsuarios.cargarUsuariosEnTabla();
 
         // Mostrar la ventana de GestionUsuarios
-        gestionUsuarios.setVisible(true);
+        showJPanelDashboardAdmin(new GestionUsuarios());
     }
     public void desactivarUsuario(String dni, GestionUsuarios gestionUsuarios){
         Usuario user = new Usuario();
@@ -295,7 +298,7 @@ public class AppController {
             actualizarYMostrarUsuarios();
         }
         else if(object instanceof GestionUsuarios ){
-            paginaPrincipalAdmin.setVisible(true);
+            dashA.showJPanel(new GestionUsuarios());
         }
         else if(object instanceof UsuariosDesactivados){
             usuariosDesactivados.setVisible(false);
@@ -316,8 +319,7 @@ public class AppController {
         }
     }
     
-    public void mostrarUsuariosDesactivados(GestionUsuarios gestionUsuarios){
-        Usuario usuario = new Usuario();
+    public void mostrarUsuariosDesactivados(){
 
         // Llamar al método obtenerUsuarios
         List<Usuario> usuarios = usuario.obtenerUsuariosDesactivados();
@@ -339,8 +341,7 @@ public class AppController {
             usuariosDesactivados.mostrarTabla();
         }
         
-        gestionUsuarios.setVisible(false);
-        usuariosDesactivados.setVisible(true);
+        showJPanelDashboardAdmin(new UsuariosDesactivados());
     }
     
     public void activarUsuario(String dni, UsuariosDesactivados usuariosDesactivados){
@@ -348,8 +349,8 @@ public class AppController {
         user.setDni(dni);
         user.activarUsuario();
         JOptionPane.showMessageDialog(null, "El usuario con DNI "+dni+" se ha activado correctamente!");
-        usuariosDesactivados.setVisible(false);
-        actualizarYMostrarUsuarios();
+        mostrarUsuariosDesactivados();
+        
     }
 
     public void mostrarPerfilUsuario(PaginaPrincipalUsuario paginaPrincipalUsuario, String email){
@@ -405,27 +406,13 @@ public class AppController {
     }
 
     /* ------------------ Pistas --------------------- */
-    public static void mostrarGestionPistas(){
-        viewGestion.setVisible(true);
-    }
-    public static void salirGestionPistas(GestionPistas viewGestion){
-        viewGestion.setVisible(false);
-        viewAdminPanel.setVisible(true);
-    }
+
         
     /* ------------------ Reservas --------------------- */
     public void mostrarPistas(String email){
         paginaPrincipalUsuario.setVisible(false);
         reservarPista.setVisible(true);
         reservarPista.setUserEmail(email);
-    }
-    public static void mostrarReservasPistasAdmin(){
-        paginaPrincipalAdmin.setVisible(false);
-        viewReservasAdmin.setVisible(true);
-    }
-    public static void salirReservasPistasAdmin(GestionReservasAdmin viewReservasAdmin){
-        viewReservasAdmin.setVisible(false);
-        viewAdminPanel.setVisible(true);
     }
     public static void llenarPrimeraColumnaConHoras(DefaultTableModel modelo) {
     modelo.setRowCount(0);

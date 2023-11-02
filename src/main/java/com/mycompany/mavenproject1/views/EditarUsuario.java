@@ -8,11 +8,7 @@ import javax.swing.JOptionPane;
 
 public class EditarUsuario extends javax.swing.JPanel {
     private String contraseña;
-    private AppController appController;
-
-    public void setAppController(AppController appController) {
-        this.appController = appController;
-    }
+    private AppController appController = new AppController();
 
     // Método para establecer la contraseña
     public void setContraseña(String contraseña) {
@@ -301,8 +297,7 @@ public class EditarUsuario extends javax.swing.JPanel {
             }
         } else {
             // Llamar a la función para añadir el usuario solo si todos los campos están llenos
-            AppController appController = new AppController();
-            appController.editarUsuario(nombre, apellido, dni, email, telef, socio, fecha, contraseña, this);
+            appController.editarUsuario(nombre, apellido, dni, email, telef, socio, fecha, contraseña);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -344,8 +339,8 @@ public class EditarUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldDniKeyTyped
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        AppController controller = new AppController();
-        controller.showJPanelController(new GestionUsuarios());
+
+        appController.showJPanelDashboardAdmin(new GestionUsuarios());
         
     }//GEN-LAST:event_btnCancelarActionPerformed
 

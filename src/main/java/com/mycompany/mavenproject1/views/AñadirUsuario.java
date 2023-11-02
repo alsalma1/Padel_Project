@@ -13,7 +13,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class AñadirUsuario extends javax.swing.JPanel {
 
-    private AppController appController;
+    private AppController appController = new AppController();
     private String filePath;
     
     public void setAppController(AppController appController) {
@@ -348,7 +348,7 @@ public class AñadirUsuario extends javax.swing.JPanel {
             }        
         } else {
             // Llamar a la función para añadir el usuario solo si todos los campos están llenos
-            AppController appController = new AppController();
+            
             if(!appController.validarDNI_NIE(dni)){
                 JOptionPane.showMessageDialog(this, "El DNI o NIE no tiene un formato válido", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
             }
@@ -391,8 +391,7 @@ public class AñadirUsuario extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Lógica para manejar el evento de clic en el icono
-                AppController appController = new AppController();
-                appController.showJPanelController(new GestionUsuarios());
+                appController.showJPanelDashboardAdmin(new GestionUsuarios());
             }
         });
     }//GEN-LAST:event_returnIconMouseEntered
@@ -419,8 +418,8 @@ public class AñadirUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_fieldDniKeyTyped
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        AppController appController = new AppController();
-        appController.showJPanelController(new GestionUsuarios());
+
+        appController.showJPanelDashboardAdmin(new GestionUsuarios());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileActionPerformed

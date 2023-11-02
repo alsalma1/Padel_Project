@@ -66,7 +66,6 @@ public class DashboardUsuario extends javax.swing.JFrame {
         misReservasBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1150, 680));
 
         background.setPreferredSize(new java.awt.Dimension(1150, 680));
 
@@ -287,7 +286,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PrincipalBtn;
     private javax.swing.JPanel background;
-    private javax.swing.JPanel content;
+    public javax.swing.JPanel content;
     private javax.swing.JLabel date;
     private javax.swing.JPanel header;
     private javax.swing.JSeparator jSeparator1;

@@ -278,7 +278,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel background;
-    private javax.swing.JPanel content;
+    public javax.swing.JPanel content;
     private javax.swing.JLabel date;
     private javax.swing.JPanel header;
     private javax.swing.JSeparator jSeparator1;
