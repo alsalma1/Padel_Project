@@ -12,7 +12,7 @@ public class Admin {
     private String contrasena;
     
     // Constructor
-    public Admin(String nombre_usuario, String contrasena) {
+    public Admin() {
         this.nombre_usuario = nombre_usuario;
         this.contrasena = contrasena;
     }
@@ -34,7 +34,7 @@ public class Admin {
     }
     
     //Metodos
-    public boolean comprobarDatos(){
+    public boolean esAdmin(String mail, String password){
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -47,18 +47,53 @@ public class Admin {
             // Consulta SQL para verificar las credenciales
             String consultaSQL = "SELECT * FROM administrador WHERE nombre_usuario = ? AND contrasena = ?";
             preparedStatement = connection.prepareStatement(consultaSQL);
-            preparedStatement.setString(1, getNombre_usuario());
-            preparedStatement.setString(2, getContrasena());
-
+            preparedStatement.setString(1, mail);
+            preparedStatement.setString(2, password);
+            
             resultSet = preparedStatement.executeQuery();
-
-            // Si hay al menos una fila, las credenciales son válidas
+            
             return resultSet.next();
-
-        } catch (SQLException e) {
+        }catch(SQLException e){
             e.printStackTrace();
             return false;
-        } finally {
+        }finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public boolean existeMailAdmin(String mail){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establece la conexión
+            Conexion conexion = new Conexion();
+            connection = conexion.establecerConexion();
+
+            // Consulta SQL para verificar las credenciales
+            String consultaSQL = "SELECT * FROM administrador WHERE nombre_usuario = ?;";
+            preparedStatement = connection.prepareStatement(consultaSQL);
+            preparedStatement.setString(1, mail);
+            
+            resultSet = preparedStatement.executeQuery();
+            
+            return resultSet.next();
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally {
             try {
                 if (resultSet != null) {
                     resultSet.close();

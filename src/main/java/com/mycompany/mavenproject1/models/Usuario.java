@@ -235,9 +235,46 @@ public class Usuario {
             }
         }
     }
+    public boolean esUsuario(String mail, String password){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-    public List<Usuario> datosUsuarioConDni() {
-        List<Usuario> usuarios = new ArrayList<>();
+        try {
+            // Establece la conexión
+            Conexion conexion = new Conexion();
+            connection = conexion.establecerConexion();
+
+            // Consulta SQL para verificar las credenciales
+            String consultaSQL = "SELECT * FROM usuarios WHERE email = ? AND contraseña = ?";
+            preparedStatement = connection.prepareStatement(consultaSQL);
+            preparedStatement.setString(1, mail);
+            preparedStatement.setString(2, password);
+            
+            resultSet = preparedStatement.executeQuery();
+            
+            return resultSet.next();
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public Usuario datosUsuarioConDni(String dni) {
+        Usuario user = new Usuario();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -250,23 +287,23 @@ public class Usuario {
             // Crear la consulta SQL con un PreparedStatement y parámetros
             String sql = "SELECT * FROM usuarios WHERE dni = ?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, getDni());
+            preparedStatement.setString(1, dni);
 
             // Ejecutar la consulta
             resultSet = preparedStatement.executeQuery();
 
             // Iterar sobre los resultados y crear objetos Usuario
             while (resultSet.next()) {
-                this.setNombre(resultSet.getString("nombre"));
-                this.setApellido(resultSet.getString("apellido"));
-                this.setEmail(resultSet.getString("email"));
-                this.setContrasena(resultSet.getString("contraseña"));
-                this.setFecha_nacimiento(resultSet.getDate("fecha_nacimiento"));
-                this.setTelefono(resultSet.getString("telefono"));
-                this.setDni(resultSet.getString("dni"));
-                this.setSocio(resultSet.getBoolean("socio"));
+                user.setNombre(resultSet.getString("nombre"));
+                user.setApellido(resultSet.getString("apellido"));
+                user.setEmail(resultSet.getString("email"));
+                user.setContrasena(resultSet.getString("contraseña"));
+                user.setFecha_nacimiento(resultSet.getDate("fecha_nacimiento"));
+                user.setTelefono(resultSet.getString("telefono"));
+                user.setDni(resultSet.getString("dni"));
+                user.setSocio(resultSet.getBoolean("socio"));
 
-                usuarios.add(this);
+                
             }
 
         } catch (SQLException e) {
@@ -281,7 +318,7 @@ public class Usuario {
                 e.printStackTrace(); // Manejo de errores: imprime el error en la consola
             }
         }
-        return usuarios;
+        return user;
     }
     
     public void editarUsuario(){

@@ -133,7 +133,7 @@ public class LoginAdmin extends javax.swing.JPanel {
 
         // Llamar al método comprobarCredenciales
         AppController appController = new AppController();
-        appController.comprobarCredenciales(usuario, contrasena);
+        //appController.comprobarCredenciales(usuario, contrasena);
     }//GEN-LAST:event_btnLoginUsuActionPerformed
 
     private void usuarioAdminFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioAdminFieldActionPerformed

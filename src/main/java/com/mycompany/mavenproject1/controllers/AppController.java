@@ -14,7 +14,6 @@ import com.mycompany.mavenproject1.views.GestionUsuarios;
 import com.mycompany.mavenproject1.views.LoginAdmin;
 import com.mycompany.mavenproject1.views.LoginUsuario;
 import com.mycompany.mavenproject1.views.MisReservas;
-import com.mycompany.mavenproject1.views.PaginaPrincipalUsuario;
 import com.mycompany.mavenproject1.views.PerfilUsuario;
 import com.mycompany.mavenproject1.views.ReservarPista;
 import com.mycompany.mavenproject1.views.UsuariosDesactivados;
@@ -40,27 +39,28 @@ public class AppController {
     public static AñadirUsuario añadirUsuario = new AñadirUsuario();
     public static GestionUsuarios gestionUsuarios = new GestionUsuarios();
     public static UsuariosDesactivados usuariosDesactivados = new UsuariosDesactivados();
-    public static PaginaPrincipalUsuario paginaPrincipalUsuario = new PaginaPrincipalUsuario();
     public static PerfilUsuario perfil;
-    public static ReservarPista reservarPista;
-    public static MisReservas misReservas;
+    public static ReservarPista reservarPista = new ReservarPista();
+    public static MisReservas misReservas = new MisReservas(); 
     public static DashboardAdmin dashA = new DashboardAdmin();
+    public static String email;
     public static DashboardUsuario dashU = new DashboardUsuario();
     public static Usuario usuario = new Usuario();
+    public static Admin admin = new Admin();
     
     private static final GestionReservasAdmin viewReservasAdmin = new GestionReservasAdmin();
 
     /* ------------------ Adminastrador --------------------- */
     
-    public void comprobarCredenciales(String usuario, String contrasena){
-        Admin admin = new Admin(usuario, contrasena);
-        if(admin.comprobarDatos()){
-            // Las credenciales son válidas, abre la página principal del administrador
+    public void verificarLogin(String email,String password){
+        if(admin.esAdmin(email,password)){
             dashA.setVisible(true);
-        }
-        else{
+        } else if(usuario.esUsuario(email, password)){
+            dashU.setVisible(true);
+        } else {
             JOptionPane.showMessageDialog(null, "Datos incorerctos, intenta otra vez!");
         }
+        
     }
     /* ----------------------------Manejo de paneles en la app------------------*/
     public void showJPanelDashboardAdmin(JPanel p){
@@ -84,16 +84,12 @@ public class AppController {
         dashU.content.repaint();
     }
     /* ------------------ Usuario --------------------- */
-    public void comprobarCredencialesUsuario(String email, String contraseña, LoginUsuario loginUsu){
+    public void comprobarCredencialesUsuario(String email, String contraseña){
         Usuario user = new Usuario();
         user.setEmail(email);
         user.setContrasena(contraseña);
         if(user.comprobarDatosUsuario()){
-            //String texto = paginaPrincipalUsuario.labelUsu.getText()+" "+nombre;
-            // Las credenciales son válidas, abre la página principal del usuario
-            //paginaPrincipalUsuario.setUserEmail(email);
-            //paginaPrincipalUsuario.labelUsu.setText(texto);
-            //paginaPrincipalUsuario.setVisible(true);
+            this.email = email;
             dashU.setVisible(true);
         }
         else{
@@ -106,7 +102,6 @@ public class AppController {
 
         // Llamar al método obtenerUsuarios
         List<Usuario> usuarios = usuario.obtenerUsuarios();
-        GestionUsuarios gestionUsuarios = new GestionUsuarios();
         gestionUsuarios.cargarUsuariosEnTabla();
 
         if (usuarios.isEmpty()) {
@@ -128,10 +123,8 @@ public class AppController {
         dashA.showJPanel(new GestionUsuarios());
     }
     public void datosUsurios(){
-        Usuario usuario = new Usuario();
         // Llamar al método obtenerUsuarios
         List<Usuario> usuarios = usuario.obtenerUsuarios();
-        GestionUsuarios gestionUsuarios = new GestionUsuarios();
         gestionUsuarios.cargarUsuariosEnTabla();
     }
     public void añadirUsuario(String nombre, String apellido, String dni, String email, String telef, String socio, Date fecha){
@@ -173,7 +166,7 @@ public class AppController {
         String contraseña = nombre.toLowerCase()+randomString;
         usuario.setContrasena(contraseña);
         
-        if(usuario.existeUsuario()){
+        if(usuario.existeUsuario() || admin.existeMailAdmin(email)){
             JOptionPane.showMessageDialog(null, "Este email o Dni ya estan registrados en el sistema, intenta otra vez!");
         }
         else{
@@ -210,29 +203,25 @@ public class AppController {
     }
     
     public void mostrarDatosUsuario(String dni){
-        Usuario usuario = new Usuario();
-        usuario.setDni(dni);
-        List<Usuario> usuarios = usuario.datosUsuarioConDni();
+        Usuario user = usuario.datosUsuarioConDni(dni);
         String contraseña = "";
         // Imprime los datos de los usuarios
-        for (Usuario user : usuarios) {
-            
-            editUser.fieldNombre.setText(user.getNombre());
-            editUser.fieldApellido.setText(user.getApellido());
-            editUser.fieldDni.setText(user.getDni());
-            editUser.fieldTelefono.setText(user.getTelefono());
-            editUser.fieldEmail.setText(user.getEmail());
-            editUser.fieldFecha.setDate(user.getFecha_nacimiento());
-            contraseña = user.getContrasena();
-            // Establecer selección del JComboBox basado en user.getSocio()
-            if (user.getSocio()) {
-                editUser.boxSocio.setSelectedItem("Sí");
-            } else {
-                editUser.boxSocio.setSelectedItem("No");
-            }
+        System.out.println(user.getNombre());
+        editUser.fieldNombre.setText(user.getNombre());
+        editUser.fieldApellido.setText(user.getApellido());
+        editUser.fieldDni.setText(user.getDni());
+        editUser.fieldTelefono.setText(user.getTelefono());
+        editUser.fieldEmail.setText(user.getEmail());
+        editUser.fieldFecha.setDate(user.getFecha_nacimiento());
+        contraseña = user.getContrasena();
+        // Establecer selección del JComboBox basado en user.getSocio()
+        if (user.getSocio()) {
+            editUser.boxSocio.setSelectedItem("Sí");
+        } else {
+            editUser.boxSocio.setSelectedItem("No");
         }
         editUser.setContraseña(contraseña);
-        showJPanelDashboardAdmin(new EditarUsuario());
+        showJPanelDashboardAdmin(editUser);
     }
     
     public void editarUsuario(String nombre, String apellido, String dni, String email, String telef, String socio, Date fecha, String contraseña){
@@ -290,36 +279,6 @@ public class AppController {
         actualizarYMostrarUsuarios();
     }
     
-    public void volverAtras(Object object){
-        if(object instanceof EditarUsuario){
-            editUser.setVisible(false);
-            actualizarYMostrarUsuarios();
-        }
-        else if(object instanceof AñadirUsuario){
-            añadirUsuario.setVisible(false);
-            actualizarYMostrarUsuarios();
-        }
-        else if(object instanceof GestionUsuarios ){
-            dashA.showJPanel(new GestionUsuarios());
-        }
-        else if(object instanceof UsuariosDesactivados){
-            usuariosDesactivados.setVisible(false);
-            actualizarYMostrarUsuarios();
-        }
-        else if(object instanceof PerfilUsuario){
-            //perfilUsuario.setVisible(false);
-            paginaPrincipalUsuario.setVisible(true);
-        }
-        else if(object instanceof ReservarPista){
-            reservarPista.setVisible(false);
-            paginaPrincipalUsuario.setVisible(true);
-        }
-        else if(object instanceof MisReservas){
-            misReservas.setVisible(false);
-            //mostrarPerfilUsuario(paginaPrincipalUsuario, misReservas.getUserEmail());
-        }
-    }
-    
     public void mostrarUsuariosDesactivados(){
 
         // Llamar al método obtenerUsuarios
@@ -356,7 +315,7 @@ public class AppController {
 
     public void mostrarPerfilUsuario(String email){        
         Usuario user = new Usuario();
-        perfil = new PerfilUsuario(email);
+        perfil = new PerfilUsuario();
         user.setEmail(email);
 
         List<Usuario> infoUser = user.datosUsuarioLogeado();
@@ -408,12 +367,12 @@ public class AppController {
 
     }
 
-    /* ------------------ Pistas --------------------- */
-
+    /* ------------------ Login --------------------- */
+    
         
     /* ------------------ Reservas --------------------- */
-    public void mostrarPistas(String email){
-        reservarPista = new ReservarPista(email);
+    public void mostrarPistas(){
+        reservarPista = new ReservarPista();
         dashU.showJPanel(reservarPista);
     }
     public static void llenarPrimeraColumnaConHoras(DefaultTableModel modelo) {
@@ -479,7 +438,7 @@ public class AppController {
         try {
             Date date = dateFormat.parse(fecha);
             java.sql.Date fechaSQL = new java.sql.Date(date.getTime());
-            reserva.setEmail_usuario(reservarPista.userEmail);
+            reserva.setEmail_usuario(email);
             reserva.setFecha(fechaSQL);            
         } catch (Exception e) {
             e.printStackTrace();

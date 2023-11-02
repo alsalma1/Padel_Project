@@ -5,7 +5,6 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 import com.mycompany.mavenproject1.controllers.AppController;
 import com.mycompany.mavenproject1.views.BienvenidoUsuario;
 import com.mycompany.mavenproject1.views.MisReservas;
-import com.mycompany.mavenproject1.views.PaginaPrincipalUsuario;
 import com.mycompany.mavenproject1.views.PerfilUsuario;
 import com.mycompany.mavenproject1.views.ReservarPista;
 import java.awt.BorderLayout;
@@ -21,11 +20,9 @@ import javax.swing.UIManager;
  * @author Alex
  */
 public class DashboardUsuario extends javax.swing.JFrame {
-    private String emailLogeado;
     private AppController appController = new AppController();
     
-    public DashboardUsuario(String email) {
-        this.emailLogeado = email;
+    public DashboardUsuario() {
         setTitle("Panel usuario");
         initComponents();
         initStyles();
@@ -36,7 +33,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
         msg.putClientProperty( "FlatLaf.styleClass", "h1" );
     }
     private void initContent(){
-        showJPanel(new BienvenidoUsuario(emailLogeado));
+        showJPanel(new BienvenidoUsuario());
     }
     public void showJPanel(JPanel p){
         p.setSize(930, 560);
@@ -76,6 +73,7 @@ public class DashboardUsuario extends javax.swing.JFrame {
         misReservasBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1150, 680));
 
         background.setPreferredSize(new java.awt.Dimension(1150, 680));
 
@@ -273,20 +271,19 @@ public class DashboardUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void perfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosBtnActionPerformed
-        appController.mostrarPerfilUsuario(emailLogeado);
+        showJPanel(new PerfilUsuario());
     }//GEN-LAST:event_usuariosBtnActionPerformed
 
     private void reservasPistasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pistasBtnActionPerformed
-        appController.mostrarPistas(emailLogeado);
-        //showJPanel(new ReservarPista());
+        showJPanel(new ReservarPista());
     }//GEN-LAST:event_pistasBtnActionPerformed
 
     private void PrincipalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrincipalBtnActionPerformed
-        showJPanel(new BienvenidoUsuario(emailLogeado));
+        showJPanel(new BienvenidoUsuario());
     }//GEN-LAST:event_PrincipalBtnActionPerformed
 
     private void misReservasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservasBtnActionPerformed
-        appController.mostrarMisReservas(emailLogeado);
+        appController.mostrarMisReservas(appController.email);
         //showJPanel(new MisReservas());
     }//GEN-LAST:event_reservasBtnActionPerformed
 

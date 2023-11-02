@@ -3,10 +3,9 @@ package com.mycompany.mavenproject1.views;
 import com.mycompany.mavenproject1.controllers.AppController;
 
 public class PerfilUsuario extends javax.swing.JPanel {
-    private String userEmail;
-
-    public PerfilUsuario(String userEmail) {
-        this.userEmail = userEmail;
+    private AppController appController = new AppController();
+    public PerfilUsuario() {
+        String userEmail = appController.email;
         initComponents();
     }
 

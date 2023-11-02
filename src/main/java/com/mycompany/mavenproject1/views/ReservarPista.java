@@ -34,7 +34,6 @@ public class ReservarPista extends javax.swing.JPanel {
     
     private List<Integer> pistasEnMantenimiento = new ArrayList<>();
     private Date fechaSeleccionada;
-    public String userEmail;
 
     public List<String> getHoras() {
         return horas;
@@ -56,8 +55,8 @@ public class ReservarPista extends javax.swing.JPanel {
         return pistasEnMantenimiento;
     }
     
-    public ReservarPista(String email) {
-        this.userEmail = email;
+    public ReservarPista() {
+        //this.userEmail = email;
         initComponents();
         // Cambiar el tamaño de la columna 0
         TableColumn column = tablePistas.getColumnModel().getColumn(0);
@@ -255,10 +254,9 @@ public class ReservarPista extends javax.swing.JPanel {
                         tablePistas.setCursor(new Cursor(Cursor.HAND_CURSOR));
                         String hora = (String) model.getValueAt(row, 0);
                         int pista = col;
-                        String emailUsuarioLogeado = userEmail;
-                        appController.hacerLaReserva(hora, pista, fechaSeleccionada, emailUsuarioLogeado);
+                        appController.hacerLaReserva(hora, pista, fechaSeleccionada, appController.email);
                     } else {
-                        appController.avisarUsuario(userEmail);
+                        appController.avisarUsuario(appController.email);
                         tablePistas.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // Restablecer el cursor
                     }
                 }else {

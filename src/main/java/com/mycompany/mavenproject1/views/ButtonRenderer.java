@@ -34,7 +34,7 @@ class ButtonRenderer extends DefaultTableCellRenderer {
         // Verificar si la acción ya se ejecutó para no cada vez que se clica en el boton llamar al metodo mostrarDatosUusario
         if (!editActionExecuted) {
             // Acción específica para el botón
-            AppController appController = new AppController();
+            System.out.println(dni);
             appController.mostrarDatosUsuario(dni);
             editActionExecuted = true;  // Marcar que la acción se ejecutó
         }
