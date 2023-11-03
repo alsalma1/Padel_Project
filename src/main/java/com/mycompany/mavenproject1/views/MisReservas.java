@@ -82,7 +82,7 @@ public class MisReservas extends javax.swing.JPanel {
                         Object idReservaObj = tableMisReservas.getValueAt(row, 0); // Obtén el valor de la columna "Numero reserva"
                         if (idReservaObj != null) {
                             int idReserva = Integer.parseInt(idReservaObj.toString()); // Convierte el valor a un entero si es necesario
-                            buttonRendererDelete.buttonDeleteAction(idReserva, MisReservas.this);
+                            buttonRendererDelete.buttonDeleteAction(idReserva, MisReservas.this, getUserEmail());
                         }
                     }
                 }

@@ -81,15 +81,6 @@ public class AppController {
         dashA.content.revalidate();
         dashA.content.repaint();
     }
-    /*public void showJPanelDashboardUsuario(JPanel p){
-        p.setSize(926, 540);
-        p.setLocation(0,0);
-        dashU.content.removeAll();
-        dashU.content.setLayout(new BorderLayout()); // Asegúrate de establecer un BorderLayout si aún no lo has hecho
-        dashU.content.add(p, BorderLayout.CENTER);
-        dashU.content.revalidate();
-        dashU.content.repaint();
-    }*/
     /* ------------------ Usuario --------------------- */
     public void comprobarCredencialesUsuario(String email, String contraseña){
         Usuario user = new Usuario();
@@ -485,12 +476,14 @@ public class AppController {
         }
     }
     
-    public void eliminarReserva(int idReserva, MisReservas misReservas){
+    public void eliminarReserva(int idReserva, MisReservas misReservas, String email){
         Reserva reserva = new Reserva();
         reserva.setId_reserva(idReserva);
         reserva.eliminarReserva();
         //----------No olvidar poner un mensaje de confirmacion antes de borrar la reserva
         JOptionPane.showMessageDialog(null, "Tu reserva con numero "+idReserva+" se eliminó correctamente!");
+        System.out.println("Email: "+email);
+        mostrarMisReservas(email);
     }
     
     

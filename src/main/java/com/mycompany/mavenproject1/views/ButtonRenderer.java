@@ -49,11 +49,11 @@ class ButtonRenderer extends DefaultTableCellRenderer {
             deleteActionExecuted = true;
         }
     }
-    public void buttonDeleteAction(int idReserva, Object objeto){
+    public void buttonDeleteAction(int idReserva, Object objeto, String email){
         if (!deleteActionExecuted) {
             if(objeto instanceof MisReservas){
                 MisReservas misReservas = new MisReservas();
-                appController.eliminarReserva(idReserva, misReservas);
+                appController.eliminarReserva(idReserva, misReservas,email );
             }
             deleteActionExecuted = true;
         }

@@ -87,7 +87,7 @@ public class Reserva {
                 int count = resultSet.getInt("count");
                 if (count > 0) {
                     // Si count es mayor que 0, realizar otra consulta para obtener la hora y el id_pista
-                    String sqlSelect = "SELECT hora, id_pista FROM reservas WHERE fecha = ?";
+                    String sqlSelect = "SELECT hora, id_pista FROM reservas WHERE fecha = ? AND activa = 1";
                     preparedStatement = connection.prepareStatement(sqlSelect);
                     preparedStatement.setDate(1, getFecha());
 
@@ -212,7 +212,7 @@ public class Reserva {
             Conexion conn = new Conexion();
             connection = conn.establecerConexion();
 
-            String sqlCount = "SELECT * FROM reservas WHERE email_usuario = ? AND fecha = ?";
+            String sqlCount = "SELECT * FROM reservas WHERE email_usuario = ? AND fecha = ? AND activa = 1";
             preparedStatement = connection.prepareStatement(sqlCount);
             preparedStatement.setString(1, getEmail_usuario());
             preparedStatement.setDate(2, getFecha());
