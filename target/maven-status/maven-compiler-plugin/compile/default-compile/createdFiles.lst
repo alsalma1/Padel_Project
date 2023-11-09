@@ -24,9 +24,11 @@ com\mycompany\mavenproject1\views\AñadirUsuario$10.class
 com\mycompany\mavenproject1\views\GestionPistas$3.class
 com\mycompany\mavenproject1\views\ReservarPista$2.class
 com\mycompany\mavenproject1\views\ReservarPista.class
+com\mycompany\mavenproject1\Dashboard$4.class
 CustomCellRenderer$1.class
 com\mycompany\mavenproject1\DashboardUsuario$2.class
 com\mycompany\mavenproject1\views\ReservarPista$5.class
+com\mycompany\mavenproject1\views\AñadirUsuario$12.class
 com\mycompany\mavenproject1\views\EditarUsuario$1.class
 com\mycompany\mavenproject1\views\LoginUsuario$1.class
 com\mycompany\mavenproject1\views\EditarUsuario$5.class
