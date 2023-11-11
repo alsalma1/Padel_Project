@@ -63,9 +63,8 @@ public class Dashboard extends javax.swing.JFrame {
         emailTxtField = new javax.swing.JTextField();
         passwLabel = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        principalBtn = new javax.swing.JButton();
+        img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1150, 680));
@@ -73,7 +72,9 @@ public class Dashboard extends javax.swing.JFrame {
 
         background.setBackground(new java.awt.Color(255, 255, 255));
 
-        img.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        login.setBackground(new java.awt.Color(51, 153, 255));
+        login.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         content.setBackground(new java.awt.Color(51, 128, 210));
         content.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -104,19 +105,7 @@ public class Dashboard extends javax.swing.JFrame {
         passwLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         passwLabel.setText("Contraseña");
 
-        passwordField.setBackground(new java.awt.Color(227, 227, 227));
-
-        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setLabelFor(content);
-        jLabel1.setText("INICIAR SESIÓN");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel1.setFocusCycleRoot(true);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/raqueta-de-padel.png"))); // NOI18N
+        passwordField.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -147,9 +136,9 @@ public class Dashboard extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(emailTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(passwLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(passwordField)))
+                .addContainerGap())
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +164,25 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(232, 232, 232))
         );
 
+        login.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
+
+        principalBtn.setBackground(new java.awt.Color(51, 153, 255));
+        principalBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        principalBtn.setForeground(new java.awt.Color(255, 255, 255));
+        principalBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-exportar-32.png"))); // NOI18N
+        principalBtn.setText("Salir");
+        principalBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        principalBtn.setBorderPainted(false);
+        principalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        principalBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                principalBtnActionPerformed(evt);
+            }
+        });
+        login.add(principalBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 290, 60));
+
+        img.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
@@ -182,7 +190,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(img, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE))
+                .addComponent(img, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,6 +222,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void emailTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTxtFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailTxtFieldActionPerformed
+
+    private void principalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalBtnActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_principalBtnActionPerformed
     private void setImageLabel(JLabel img,String ruta){
         ImageIcon image = new ImageIcon(ruta);
         Icon icon = new ImageIcon(
@@ -239,5 +251,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton loginBtn;
     private javax.swing.JLabel passwLabel;
     private javax.swing.JPasswordField passwordField;
+    private javax.swing.JButton principalBtn;
     // End of variables declaration//GEN-END:variables
 }

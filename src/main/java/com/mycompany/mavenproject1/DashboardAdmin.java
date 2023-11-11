@@ -59,9 +59,9 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         usuariosBtn = new javax.swing.JButton();
         pistasBtn = new javax.swing.JButton();
-        cerrarSesionBtn = new javax.swing.JButton();
+        salirBtn = new javax.swing.JButton();
+        principalBtn = new javax.swing.JButton();
         reservasBtn = new javax.swing.JButton();
-        principalBtn1 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         msg = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
@@ -111,16 +111,33 @@ public class DashboardAdmin extends javax.swing.JFrame {
             }
         });
 
-        cerrarSesionBtn.setBackground(new java.awt.Color(204, 204, 204));
-        cerrarSesionBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cerrarSesionBtn.setText("Cerrar sesión");
-        cerrarSesionBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        cerrarSesionBtn.setBorderPainted(false);
-        cerrarSesionBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cerrarSesionBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        cerrarSesionBtn.addActionListener(new java.awt.event.ActionListener() {
+        salirBtn.setBackground(new java.awt.Color(51, 153, 255));
+        salirBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        salirBtn.setForeground(new java.awt.Color(255, 255, 255));
+        salirBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-exportar-32.png"))); // NOI18N
+        salirBtn.setText("Salir");
+        salirBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        salirBtn.setBorderPainted(false);
+        salirBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        salirBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        salirBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cerrarSesionBtnActionPerformed(evt);
+                salirBtnActionPerformed(evt);
+            }
+        });
+
+        principalBtn.setBackground(new java.awt.Color(51, 153, 255));
+        principalBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        principalBtn.setForeground(new java.awt.Color(255, 255, 255));
+        principalBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/home-outline.png"))); // NOI18N
+        principalBtn.setText("Principal");
+        principalBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        principalBtn.setBorderPainted(false);
+        principalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        principalBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        principalBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                principalBtnActionPerformed(evt);
             }
         });
 
@@ -139,25 +156,19 @@ public class DashboardAdmin extends javax.swing.JFrame {
             }
         });
 
-        principalBtn1.setBackground(new java.awt.Color(51, 153, 255));
-        principalBtn1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        principalBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        principalBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/home-outline.png"))); // NOI18N
-        principalBtn1.setText("Principal");
-        principalBtn1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        principalBtn1.setBorderPainted(false);
-        principalBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        principalBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        principalBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                principalBtn1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(titlePadel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(6, 6, 6))
+            .addGroup(menuLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jSeparator1)
+                .addGap(20, 20, 20))
+            .addComponent(principalBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(usuariosBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(reservasBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pistasBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,23 +195,18 @@ public class DashboardAdmin extends javax.swing.JFrame {
                 .addComponent(titlePadel)
                 .addGap(12, 12, 12)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115)
+                .addGap(55, 55, 55)
+                .addComponent(principalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(usuariosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(menuLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(reservasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(menuLayout.createSequentialGroup()
                         .addGap(120, 120, 120)
-                        .addComponent(pistasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cerrarSesionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(144, 144, 144))
-            .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(menuLayout.createSequentialGroup()
-                    .addGap(149, 149, 149)
-                    .addComponent(principalBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(470, Short.MAX_VALUE)))
+                        .addComponent(pistasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(reservasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(239, 239, 239)
+                .addComponent(salirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         header.setBackground(new java.awt.Color(0, 153, 255));
@@ -296,19 +302,17 @@ public class DashboardAdmin extends javax.swing.JFrame {
         showJPanel(new GestionPistas());
     }//GEN-LAST:event_pistasBtnActionPerformed
 
-    private void cerrarSesionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionBtnActionPerformed
-        this.setVisible(false);
-        Dashboard dash = new Dashboard();
-        dash.setVisible(true);
-    }//GEN-LAST:event_cerrarSesionBtnActionPerformed
+    private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtnActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_salirBtnActionPerformed
+
+    private void principalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalBtnActionPerformed
+        showJPanel(new bienvenidoAdmin());
+    }//GEN-LAST:event_principalBtnActionPerformed
 
     private void reservasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservasBtnActionPerformed
         showJPanel(new GestionReservasAdmin());
     }//GEN-LAST:event_reservasBtnActionPerformed
-
-    private void principalBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_principalBtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,7 +321,6 @@ public class DashboardAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel background;
-    private javax.swing.JButton cerrarSesionBtn;
     public javax.swing.JPanel content;
     private javax.swing.JLabel date;
     private javax.swing.JPanel header;
@@ -325,8 +328,9 @@ public class DashboardAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel menu;
     private javax.swing.JLabel msg;
     private javax.swing.JButton pistasBtn;
-    private javax.swing.JButton principalBtn1;
+    private javax.swing.JButton principalBtn;
     private javax.swing.JButton reservasBtn;
+    private javax.swing.JButton salirBtn;
     private javax.swing.JLabel titlePadel;
     private javax.swing.JButton usuariosBtn;
     // End of variables declaration//GEN-END:variables
