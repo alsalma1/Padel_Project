@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -163,8 +164,7 @@ public class Reserva {
         }
     }  
         
-    public void reservar(){
-                
+    public void reservar(){       
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -369,4 +369,284 @@ public class Reserva {
             }
         }
     }
+    
+    public Boolean reservaSeleccionada(){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {            
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Consulta SQL para obtener usuarios
+            String sql = "SELECT activa FROM reservas WHERE fecha = ? AND hora = ? AND id_pista = ?";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Establecer los valores para los parámetros
+            preparedStatement.setDate(1, getFecha());
+            preparedStatement.setString(2, getHora());
+            preparedStatement.setInt(3, getId_pista());
+            
+            // Ejecutar la consulta de inserción
+            resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet != null && resultSet.next()) {
+                int activa = resultSet.getInt("activa");
+                return activa == 0;
+            }
+            return false;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public int buscarIdReserva(){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        int idReserva = -1;
+        try {            
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Consulta SQL para obtener la cuenta de registros
+            String sql = "SELECT id_reserva FROM reservas WHERE fecha = ? AND hora = ? AND id_pista = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDate(1, getFecha());
+            preparedStatement.setString(2, getHora());
+            preparedStatement.setInt(3, getId_pista());
+            resultSet = preparedStatement.executeQuery();
+            
+            // Procesa los resultados
+            if (resultSet.next()) {
+                idReserva = resultSet.getInt("id_reserva");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return idReserva;
+    }
+    
+    public void guardarReservaSeleccionada(){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {            
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Consulta SQL para obtener usuarios
+            String sql = "INSERT INTO reservasseleccionadas (emailUsuario, idReserva) VALUES (?, ?)";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Establecer los valores para los parámetros
+            preparedStatement.setString(1, getEmail_usuario());
+            preparedStatement.setInt(2, getId_reserva());
+            System.out.println(preparedStatement);
+
+            // Ejecutar la consulta de inserción
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            //
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                 // Manejo de errores: imprime el error en la consola
+            }
+        }
+    }
+    
+    //Comprobar si la reserva eliminada existe en la tabla de las reservas seleccionadas, eso significa que otro usuario
+    //lo ha seleccionada para cuando este disponible
+    public Boolean estaSeleccionada(){
+        return true;
+    }
+    
+    public void desactivarReservasPasadas(){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Crear la consulta SQL con un PreparedStatement y parámetros
+            String sql = "UPDATE reservas SET activa = 0 WHERE fecha < ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDate(1, getFecha());
+
+            // Ejecutar la consulta
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar recursos
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public boolean reservaSeleccionadaEliminada() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Consulta SQL para obtener la cuenta de registros
+            String sqlCount = "SELECT COUNT(*) AS count FROM reservasseleccionadas WHERE idReserva = ?";
+            preparedStatement = connection.prepareStatement(sqlCount);
+
+            // Establecer los valores para los parámetros
+            preparedStatement.setInt(1, getId_reserva());
+
+            // Ejecutar la consulta
+            resultSet = preparedStatement.executeQuery();
+
+            // Verificar si hay al menos un registro
+            if (resultSet != null && resultSet.next()) {
+                int count = resultSet.getInt("count");
+                if (count > 0) {
+                    return true; // Devolver true si count > 0
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Devolver false si no se cumple la condición
+        return false;
+    }
+    
+    public boolean fechaEsSuperior(){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Consulta SQL para obtener la cuenta de registros
+            String sqlCount = "SELECT fecha FROM reservas WHERE id_reserva = ?";
+            preparedStatement = connection.prepareStatement(sqlCount);
+            preparedStatement.setInt(1, getId_reserva());
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet != null && resultSet.next()) {
+                // Obtener la fecha de la reserva desde la base de datos
+                LocalDate fechaReserva = resultSet.getDate("fecha").toLocalDate();
+                // Obtener la fecha actual
+                LocalDate fechaActual = LocalDate.now();
+                // Comparar las fechas
+                if (fechaActual.isBefore(fechaReserva)) {
+                    return true; // Devolver true si la fecha actual es menor que la fecha de la reserva
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Devolver false si no se cumple la condición
+        return false;
+    }
+    
+    public String usuarioReservaSelecionada(){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String emailUsuario = null;
+
+        try {
+            // Establecer conexión a la base de datos
+            Conexion conn = new Conexion();
+            connection = conn.establecerConexion();
+
+            // Consulta SQL para obtener el emailUsuario por idReserva
+            String sql = "SELECT emailUsuario FROM reservasseleccionadas WHERE idReserva = ?";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Establecer el valor para el parámetro (idReserva)
+            preparedStatement.setInt(1, getId_reserva());
+
+            // Ejecutar la consulta
+            resultSet = preparedStatement.executeQuery();
+
+            // Verificar si se obtuvo un resultado
+            if (resultSet != null && resultSet.next()) {
+                emailUsuario = resultSet.getString("emailUsuario");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return emailUsuario;
+    }
+
 }

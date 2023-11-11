@@ -14,7 +14,7 @@ public class Conexion {
     String puerto = "3306";
     
     String cadena = "jdbc:mysql://"+ip+":"+puerto+"/"+bd;
-    
+
     public Connection establecerConexion(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");

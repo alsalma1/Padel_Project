@@ -2,8 +2,6 @@ package com.mycompany.mavenproject1;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.mycompany.mavenproject1.config.Conexion;
-import com.mycompany.mavenproject1.controllers.AppController;
-import com.mycompany.mavenproject1.views.ReservarPista;
 
 public class Mavenproject1 {
 

@@ -32,6 +32,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -50,6 +51,7 @@ public class AppController {
     public static ReservarPista reservarPista;
     public static MisReservas misReservas = new MisReservas(); 
     public static DashboardAdmin dashA = new DashboardAdmin();
+    public static Dashboard dashBoard = new Dashboard();
     public static String email;
     public static DashboardUsuario dashU;
     public static Usuario usuario = new Usuario();
@@ -64,11 +66,16 @@ public class AppController {
         if(admin.esAdmin(email,password)){
             dashA.setVisible(true);
         } else if(usuario.esUsuario(email, password)){
+            Usuario user = new Usuario();
+            user.setEmail(email);
+            String nombre = user.obtenerNombre();
+            String mensaje = dashU.msg.getText()+" "+nombre;
+            dashU.msg.setText(mensaje);
             dashU.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Datos incorerctos, intenta otra vez!");
-        }
-        
+            dashBoard.setVisible(true);
+        }   
     }
     /* ----------------------------Manejo de paneles en la app------------------*/
     public void showJPanelDashboardAdmin(JPanel p){
@@ -476,14 +483,26 @@ public class AppController {
         }
     }
     
-    public void eliminarReserva(int idReserva, MisReservas misReservas, String email){
+    public void eliminarReserva(int idReserva, MisReservas misReservas, String email, int numPista, String hora, String fecha){
         Reserva reserva = new Reserva();
+        ReservarPista reservarPista = new ReservarPista(email);
         reserva.setId_reserva(idReserva);
         reserva.eliminarReserva();
         //----------No olvidar poner un mensaje de confirmacion antes de borrar la reserva
         JOptionPane.showMessageDialog(null, "Tu reserva con numero "+idReserva+" se eliminó correctamente!");
-        System.out.println("Email: "+email);
         mostrarMisReservas(email);
+
+        //Buscar el id de la reserva eliminada en la tabla reservasseleccionadas y comprobar si la fecha de la reserva es superior a la fecha actual
+        if(reserva.reservaSeleccionadaEliminada()){
+            String usu = reserva.usuarioReservaSelecionada();
+            if(reserva.fechaEsSuperior()){
+                reservarPista.createEmail(usu, numPista, hora, fecha);
+                reservarPista.sendEmail();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "La fecha no es superior");
+            }
+        }
     }
     
     
@@ -500,4 +519,45 @@ public class AppController {
             e.printStackTrace();
         }
     }
+    
+    public void buscarReservaSeleccionada(Date fecha, String hora, int pista){
+       Reserva reserva = new Reserva();
+       
+       java.sql.Date fechaSeleccionada = new java.sql.Date(fecha.getTime());
+       reserva.setFecha(fechaSeleccionada);
+       reserva.setHora(hora);
+       reserva.setId_pista(pista);
+       if(reserva.reservaSeleccionada()){
+           System.out.println("Esta desactivada");
+        }
+    }
+    
+    public void guardarPistaSeleccionada(String email, Date fecha, String hora, int pista){
+        Reserva reserva = new Reserva();
+        java.sql.Date fechaSeleccionada = new java.sql.Date(fecha.getTime());
+        reserva.setFecha(fechaSeleccionada);
+        reserva.setHora(hora);
+        reserva.setId_pista(pista);
+        int idReserva = reserva.buscarIdReserva();
+        guardarReserva(idReserva,email);
+    }
+    
+    public void guardarReserva(int idReserva, String email){
+        Reserva reserva = new Reserva();
+        reserva.setEmail_usuario(email);
+        reserva.setId_reserva(idReserva);
+        reserva.guardarReservaSeleccionada();
+    }
+    
+    public void desactivarReservasPasadas(){
+        Reserva reserva = new Reserva();
+        // Obtener la fecha y hora actual
+        Calendar calendario = Calendar.getInstance();
+        Date fechaActual = calendario.getTime();
+        java.sql.Date fechaSql = new java.sql.Date(fechaActual.getTime());
+        reserva.setFecha(fechaSql);
+        reserva.desactivarReservasPasadas();
+    }
+    
+    
 }
