@@ -234,11 +234,6 @@ public class Dashboard extends javax.swing.JFrame {
         img.setIcon(icon);
         this.repaint();
     }
-    /**
-     * @param args the command line arguments
-     */
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel background;
     private javax.swing.JPanel content;
